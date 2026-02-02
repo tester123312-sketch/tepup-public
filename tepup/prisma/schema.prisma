@@ -1,0 +1,269 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String         @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  role          UserRole       @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+  progress      UserProgress[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model UserProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  contentType String
+  contentId   String
+  completed   Boolean   @default(false)
+  score       Int?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, contentType, contentId])
+  @@index([userId])
+  @@index([contentId])
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  icon        String   @default("brain")
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  courses     Course[]
+
+  @@index([sortOrder])
+  @@index([slug])
+}
+
+model Course {
+  id              String                      @id @default(cuid())
+  slug            String                      @unique
+  name            String
+  description     String?
+  icon            String                      @default("book-open")
+  isNew           Boolean                     @default(false)
+  isActive        Boolean                     @default(true)
+  categoryId      String
+  sortOrder       Int                         @default(0)
+  createdAt       DateTime                    @default(now())
+  updatedAt       DateTime                    @updatedAt
+  category        Category                    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  levels          Level[]
+  recommendations CourseStoryRecommendation[]
+
+  @@index([categoryId])
+  @@index([slug])
+  @@index([sortOrder])
+}
+
+model Level {
+  id        String   @id @default(cuid())
+  name      String
+  courseId  String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lessons   Lesson[]
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+  @@index([sortOrder])
+}
+
+model Lesson {
+  id        String         @id @default(cuid())
+  slug      String?        @unique
+  name      String
+  levelId   String
+  sortOrder Int            @default(0)
+  isActive  Boolean        @default(true)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  exercises Exercise[]
+  level     Level          @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  content   LessonContent?
+
+  @@index([levelId])
+  @@index([sortOrder])
+}
+
+model LessonContent {
+  id        String   @id @default(cuid())
+  lessonId  String   @unique
+  title     String
+  blocks    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+}
+
+model Exercise {
+  id          String   @id @default(cuid())
+  lessonId    String
+  type        String
+  title       String
+  instruction String
+  options     Json?
+  visualData  Json?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([lessonId])
+  @@index([sortOrder])
+}
+
+model Character {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  role        String
+  description String?
+  icon        String   @default("user")
+  color       String   @default("text-blue-600")
+  bgColor     String   @default("bg-blue-50")
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  stories     Story[]
+
+  @@index([sortOrder])
+  @@index([slug])
+}
+
+model Story {
+  id              String                      @id @default(cuid())
+  slug            String                      @unique
+  characterId     String
+  title           String
+  teaser          String?
+  icon            String                      @default("book")
+  estimatedTime   String                      @default("~20 phút")
+  relatedCourses  String[]                    @default([])
+  sortOrder       Int                         @default(0)
+  isActive        Boolean                     @default(true)
+  createdAt       DateTime                    @default(now())
+  updatedAt       DateTime                    @updatedAt
+  character       Character                   @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  parts           StoryPart[]
+  recommendations CourseStoryRecommendation[]
+
+  @@index([characterId])
+  @@index([slug])
+  @@index([sortOrder])
+}
+
+model StoryPart {
+  id        String    @id @default(cuid())
+  storyId   String
+  name      String
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  chapters  Chapter[]
+  story     Story     @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId])
+  @@index([sortOrder])
+}
+
+model Chapter {
+  id        String          @id @default(cuid())
+  slug      String?         @unique
+  partId    String
+  title     String
+  sortOrder Int             @default(0)
+  isActive  Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  part      StoryPart       @relation(fields: [partId], references: [id], onDelete: Cascade)
+  content   ChapterContent?
+
+  @@index([partId])
+  @@index([sortOrder])
+}
+
+model ChapterContent {
+  id        String   @id @default(cuid())
+  chapterId String   @unique
+  title     String
+  blocks    Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model CourseStoryRecommendation {
+  id        String   @id @default(cuid())
+  courseId  String
+  storyId   String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  story  Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, storyId])
+  @@index([courseId])
+  @@index([storyId])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
