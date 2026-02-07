@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { GraduationCap, Briefcase, Store, ArrowRight } from 'lucide-react';
+import { GraduationCap, Briefcase, Store, Bike, ArrowRight } from 'lucide-react';
 import type { CharacterDisplay } from '@/lib/types/content';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'graduation-cap': GraduationCap,
   'briefcase': Briefcase,
   'store': Store,
+  'bike': Bike,
 };
 
 interface CharacterCardProps {
@@ -36,6 +37,12 @@ export default function CharacterCard({ character }: CharacterCardProps) {
       text: 'text-orange-600',
       border: 'border-orange-200 hover:border-orange-300',
       iconBg: 'bg-orange-100',
+    },
+    'text-purple-600': {
+      bg: 'bg-purple-50',
+      text: 'text-purple-600',
+      border: 'border-purple-200 hover:border-purple-300',
+      iconBg: 'bg-purple-100',
     },
   };
 

@@ -1862,6 +1862,550 @@ export const bacTuKinhDoanhContents: Record<string, LessonContent> = {
   },
 };
 
+// ============================================================
+// CÂU CHUYỆN VỀ LAO ĐỘNG SỐ CỦA ĐỨC (Tài xế công nghệ, chạy xe ôm app)
+// ============================================================
+
+export const ducCanhLaoContents: Record<string, LessonContent> = {
+  // Chapter 1: Một ngày của tài xế công nghệ
+  'duc-cl-1': {
+    lessonId: 'duc-cl-1',
+    title: 'Một ngày của tài xế công nghệ',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Câu chuyện của Đức',
+        paragraphs: [
+          'Đức, 35 tuổi, từng là công nhân nhà máy giày ở Bình Dương. Khi nhà máy cắt giảm nhân sự, anh quyết định lên Sài Gòn chạy xe ôm công nghệ.',
+          'Mỗi ngày, Đức thức dậy lúc 5 giờ sáng, bật app và bắt đầu nhận cuốc. Anh thường chạy đến 9 giờ tối mới về - 14 tiếng trên đường.',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'message',
+        title: 'Thông báo từ app',
+        text: 'Bạn đã hoàn thành 15 cuốc hôm nay. Thu nhập: 380.000đ. Phí dịch vụ: 95.000đ. Thực nhận: 285.000đ.',
+        variant: 'info',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Đức nhìn con số 285.000đ và thở dài. Nghe thì có vẻ ổn, nhưng anh biết thu nhập thực sự thấp hơn nhiều:',
+          '• Xăng xe: 80.000đ/ngày',
+          '• Data điện thoại: 10.000đ/ngày',
+          '• Bảo trì xe (thay nhớt, vá lốp, sửa chữa...): trung bình 15.000đ/ngày',
+          'Thu nhập thực tế: 285.000 - 80.000 - 10.000 - 15.000 = 180.000đ cho 14 giờ làm việc.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Với thu nhập thực tế 180.000đ cho 14 giờ làm việc, thu nhập theo giờ của Đức là bao nhiêu? So sánh với mức lương tối thiểu giờ?',
+        options: [
+          { id: 'a', text: '25.000đ/giờ - cao hơn lương tối thiểu', isCorrect: false },
+          { id: 'b', text: '12.800đ/giờ - thấp hơn lương tối thiểu vùng I', isCorrect: true },
+          { id: 'c', text: '18.000đ/giờ - bằng lương tối thiểu', isCorrect: false },
+          { id: 'd', text: '30.000đ/giờ - gấp đôi lương tối thiểu', isCorrect: false },
+        ],
+        explanation: 'Lương tối thiểu vùng I (TP.HCM) là 23.800đ/giờ. Đức chỉ kiếm được 12.800đ/giờ (180.000 ÷ 14), thấp hơn gần một nửa so với lương tối thiểu.',
+      },
+      {
+        type: 'callout',
+        icon: 'warning',
+        title: 'Thực trạng',
+        text: 'Nhiều tài xế công nghệ làm việc nhiều giờ hơn công nhân nhà máy nhưng thu nhập thực tế thấp hơn lương tối thiểu. Với tài xế, chưa bao giờ guồng quay lao động khắc nghiệt đến vậy.',
+        variant: 'warning',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Câu chuyện của Đức đại diện cho hàng trăm nghìn tài xế công nghệ. Thu nhập thực tế sau chi phí thấp hơn nhiều so với con số app hiển thị, và thường thấp hơn cả lương tối thiểu.',
+        variant: 'success',
+      },
+    ],
+  },
+
+  // Chapter 2: Nền kinh tế Gig là gì?
+  'duc-cl-2': {
+    lessonId: 'duc-cl-2',
+    title: 'Nền kinh tế Gig là gì?',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Đức không đơn độc',
+        paragraphs: [
+          'Đức không phải người duy nhất trong tình cảnh này. Trên toàn thế giới, hàng trăm triệu người đang làm việc trong cái gọi là "Nền kinh tế Gig" (Gig Economy).',
+          'Từ "gig" ban đầu dùng trong ngành âm nhạc - chỉ những buổi biểu diễn ngắn hạn. Giờ đây, nó mô tả một hệ thống kinh tế nơi người lao động làm việc theo từng nhiệm vụ ngắn hạn thay vì công việc cố định.',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'lightbulb',
+        title: 'Nền kinh tế Gig (Gig Economy)',
+        text: 'Là hệ thống kinh tế mà người lao động làm việc theo từng "gig" (nhiệm vụ ngắn hạn) thông qua nền tảng số, thay vì làm việc cố định với hợp đồng lao động truyền thống.',
+        variant: 'info',
+      },
+      {
+        type: 'text',
+        title: 'Gig Economy ở Việt Nam',
+        paragraphs: [
+          'Tại Việt Nam, nền kinh tế Gig phát triển mạnh với:',
+          '• 200.000+ tài xế xe ôm công nghệ (Grab, Be, Gojek)',
+          '• Hàng trăm nghìn shipper giao hàng (ShopeeFood, GrabFood)',
+          '• Freelancer trên các nền tảng (Fiverr, Upwork)',
+          '',
+          'So sánh với việc làm truyền thống:',
+          '• Việc làm truyền thống: Ổn định, có BHXH, lương cố định, nghỉ phép',
+          '• Gig Economy: Linh hoạt giờ giấc, KHÔNG có BHXH, thu nhập bấp bênh, không nghỉ phép',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Điều gì KHÔNG phải là đặc điểm của nền kinh tế Gig?',
+        options: [
+          { id: 'a', text: 'Làm việc linh hoạt về thời gian', isCorrect: false },
+          { id: 'b', text: 'Được đóng bảo hiểm xã hội bắt buộc', isCorrect: true },
+          { id: 'c', text: 'Thu nhập phụ thuộc vào số đơn', isCorrect: false },
+          { id: 'd', text: 'Không có hợp đồng lao động truyền thống', isCorrect: false },
+        ],
+        explanation: 'Người lao động trong Gig Economy thường KHÔNG được đóng BHXH bắt buộc vì họ bị phân loại là "đối tác độc lập" chứ không phải nhân viên.',
+      },
+      {
+        type: 'text',
+        title: '"Đối tác" hay "Nhân viên"?',
+        paragraphs: [
+          'Các công ty công nghệ luôn gọi tài xế là "đối tác" (partner) chứ không phải "nhân viên" (employee). Tại sao?',
+          'Vì nếu tài xế là nhân viên, công ty phải:',
+          '• Đóng BHXH, BHYT, BHTN (~24% lương)',
+          '• Trả phép năm, lễ tết',
+          '• Bồi thường tai nạn lao động',
+          '• Trả trợ cấp thôi việc',
+          'Gọi tài xế là "đối tác" giúp công ty tiết kiệm 30-40% chi phí lao động.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Tại sao các công ty gọi xe muốn gọi tài xế là "đối tác" thay vì "nhân viên"?',
+        options: [
+          { id: 'a', text: 'Vì tôn trọng tài xế', isCorrect: false },
+          { id: 'b', text: 'Vì không phải đóng BHXH, BHYT, trả phép năm, bồi thường tai nạn...', isCorrect: true },
+          { id: 'c', text: 'Vì tài xế thích được gọi như vậy', isCorrect: false },
+          { id: 'd', text: 'Vì luật bắt buộc phải gọi như vậy', isCorrect: false },
+        ],
+        explanation: 'Phân loại tài xế là "đối tác" giúp công ty né tránh mọi nghĩa vụ của người sử dụng lao động theo Bộ Luật Lao Động, tiết kiệm khoảng 30-40% chi phí.',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Nền kinh tế Gig mang lại sự linh hoạt nhưng đánh đổi bằng sự bấp bênh. Cách phân loại "đối tác" thay vì "nhân viên" là chiến lược để công ty né tránh nghĩa vụ lao động.',
+        variant: 'success',
+      },
+    ],
+  },
+
+  // Chapter 3: Khi thuật toán làm sếp
+  'duc-cl-3': {
+    lessonId: 'duc-cl-3',
+    title: 'Khi thuật toán làm sếp',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Người sếp vô hình',
+        paragraphs: [
+          'Đức không có sếp, không có quản lý. Nhưng anh bị kiểm soát chặt hơn bất kỳ nhân viên văn phòng nào.',
+          'Người "sếp" của Đức là thuật toán - một hệ thống tự động quyết định mọi thứ trong công việc của anh:',
+          '• Cuốc nào Đức được nhận',
+          '• Giá cuốc bao nhiêu',
+          '• Mức thưởng/phạt ra sao',
+          '• Liệu Đức có bị "ẩn" khỏi hệ thống hay không',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'lightbulb',
+        title: 'Quản lý bằng thuật toán (Algorithmic Management)',
+        text: 'Là hình thức quản lý lao động thông qua phần mềm tự động, nơi thuật toán đưa ra quyết định về phân công việc, đánh giá hiệu suất, và kỷ luật - thay cho con người.',
+        variant: 'info',
+      },
+      {
+        type: 'text',
+        title: 'Thuật toán kiểm soát Đức như thế nào?',
+        paragraphs: [
+          '📍 Phân cuốc: Thuật toán quyết định ai nhận cuốc nào. Tài xế "ngoan" (ít từ chối) được ưu tiên.',
+          '💰 Định giá: Surge pricing - giá tăng vào giờ cao điểm, nhưng Đức không được quyết định giá.',
+          '⭐ Chấm điểm: Khách hàng đánh giá từ 1-5 sao. Dưới 4.5 sao, Đức bị giảm cuốc.',
+          '🚫 Phạt: Từ chối cuốc liên tiếp → bị "ẩn" khỏi hệ thống, không nhận được cuốc mới.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Nếu Đức từ chối 3 cuốc liên tiếp, app sẽ làm gì?',
+        options: [
+          { id: 'a', text: 'Không làm gì, đó là quyền của Đức', isCorrect: false },
+          { id: 'b', text: 'Gọi điện nhắc nhở Đức', isCorrect: false },
+          { id: 'c', text: 'Giảm số cuốc được phân phối, "ẩn" Đức khỏi hệ thống một thời gian', isCorrect: true },
+          { id: 'd', text: 'Khóa tài khoản vĩnh viễn', isCorrect: false },
+        ],
+        explanation: 'Thuật toán "phạt ngầm" tài xế từ chối cuốc bằng cách giảm tần suất phân phối đơn, thậm chí "ẩn" tài xế khỏi hệ thống. Đây gọi là shadow banning.',
+      },
+      {
+        type: 'text',
+        title: 'Sếp thuật toán vs Sếp con người',
+        paragraphs: [
+          'So sánh hai kiểu quản lý:',
+          '',
+          '👤 Sếp con người (công việc truyền thống):',
+          '• Có thể nói chuyện, thương lượng',
+          '• Quyết định có lý do rõ ràng',
+          '• Có thể khiếu nại, kháng cáo',
+          '',
+          '🤖 Sếp thuật toán (nền tảng số):',
+          '• Không thể đối thoại',
+          '• Quyết định là "hộp đen" - không giải thích',
+          '• Không có cơ chế khiếu nại hiệu quả',
+          '• Kiểm soát 24/7 qua GPS, thời gian phản hồi, tỷ lệ chấp nhận',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'warning',
+        title: 'Nghịch lý',
+        text: 'Tài xế được gọi là "đối tác độc lập" - nghĩa là tự do, tự chủ. Nhưng thực tế, thuật toán kiểm soát họ chặt hơn cả một ông sếp truyền thống. Đây là nghịch lý lớn nhất của nền kinh tế Gig.',
+        variant: 'warning',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Thuật toán tạo ra mối quan hệ quyền lực bất đối xứng: công ty kiểm soát mọi khía cạnh công việc qua thuật toán, nhưng không nhận trách nhiệm của người sử dụng lao động. Tài xế bị quản lý chặt nhưng không có bất kỳ quyền lợi nào của người được quản lý.',
+        variant: 'success',
+      },
+    ],
+  },
+
+  // Chapter 4: Tầng lớp lao động mới
+  'duc-cl-4': {
+    lessonId: 'duc-cl-4',
+    title: 'Tầng lớp lao động mới',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Lịch sử lặp lại?',
+        paragraphs: [
+          'Vào thế kỷ 19, cuộc Cách mạng Công nghiệp tạo ra một tầng lớp mới: công nhân nhà máy. Họ làm việc 14-16 giờ/ngày, lương thấp, không bảo hiểm, không nghỉ phép.',
+          'Hôm nay, cuộc Cách mạng Số đang tạo ra tầng lớp tương tự: "cần lao thời đại số" - những người như Đức, làm việc dưới sự kiểm soát của thuật toán thay vì ông chủ nhà máy.',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'lightbulb',
+        title: 'Tầng lớp cần lao thời đại số',
+        text: 'Giống như công nhân nhà máy thế kỷ 19 bị bóc lột bởi chủ nhà máy, tài xế công nghệ ngày nay bị vắt kiệt bởi thuật toán. Công cụ bóc lột thay đổi, nhưng bản chất vẫn giống nhau.',
+        variant: 'info',
+      },
+      {
+        type: 'text',
+        title: 'Điểm tương đồng đáng kinh ngạc',
+        paragraphs: [
+          '⚙️ Công nhân TK19 → 🏍️ Tài xế công nghệ:',
+          '• Làm việc 14-16 giờ/ngày → Làm việc 12-14 giờ/ngày',
+          '• Lương thấp hơn mức sống → Thu nhập thực dưới lương tối thiểu',
+          '• Không có bảo hiểm → Không có BHXH, BHYT',
+          '• Bị sa thải không lý do → Bị "khóa tài khoản" không giải thích',
+          '• Không có quyền đàm phán → Thuật toán không thể đàm phán',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Điểm giống nhau lớn nhất giữa công nhân nhà máy thế kỷ 19 và tài xế công nghệ ngày nay là gì?',
+        options: [
+          { id: 'a', text: 'Đều làm việc ngoài trời', isCorrect: false },
+          { id: 'b', text: 'Đều sử dụng máy móc', isCorrect: false },
+          { id: 'c', text: 'Đều bị kiểm soát chặt nhưng không được bảo vệ bởi luật lao động', isCorrect: true },
+          { id: 'd', text: 'Đều được trả lương theo tháng', isCorrect: false },
+        ],
+        explanation: 'Cả hai đều nằm trong tình trạng: bị kiểm soát như nhân viên nhưng pháp luật chưa công nhận họ là người lao động cần được bảo vệ. Thế kỷ 19 cần 50 năm đấu tranh để có luật lao động đầu tiên.',
+      },
+      {
+        type: 'text',
+        title: 'Thế giới đang thay đổi',
+        paragraphs: [
+          'Nhiều quốc gia đã bắt đầu hành động:',
+          '',
+          '🇬🇧 Vương quốc Anh (2021): Tòa án Tối cao phán quyết tài xế Uber là "người lao động" (worker), không phải nhà thầu độc lập. Họ được hưởng lương tối thiểu và nghỉ phép.',
+          '',
+          '🇪🇺 Liên minh Châu Âu (2024): Chỉ thị mới yêu cầu các nền tảng phải chứng minh tài xế KHÔNG phải là nhân viên, thay vì ngược lại.',
+          '',
+          '🇻🇳 Việt Nam: Bộ Luật Lao Động 2019 đã có khái niệm "quan hệ lao động" rộng hơn, nhưng việc áp dụng cho kinh tế Gig vẫn còn nhiều khoảng trống.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Nước nào đã phân loại tài xế công nghệ là "người lao động" thay vì "nhà thầu độc lập" qua phán quyết tòa án?',
+        options: [
+          { id: 'a', text: 'Mỹ', isCorrect: false },
+          { id: 'b', text: 'Trung Quốc', isCorrect: false },
+          { id: 'c', text: 'Vương quốc Anh', isCorrect: true },
+          { id: 'd', text: 'Nhật Bản', isCorrect: false },
+        ],
+        explanation: 'Năm 2021, Tòa án Tối cao Anh trong vụ Uber BV v. Aslam đã phán quyết rằng tài xế Uber là "worker" - có quyền hưởng lương tối thiểu và nghỉ phép có lương.',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Tài xế công nghệ là "tầng lớp cần lao" của thời đại số - bị kiểm soát bởi thuật toán thay vì ông chủ nhà máy. Lịch sử cho thấy cần có luật pháp mới để bảo vệ họ, giống như luật lao động ra đời để bảo vệ công nhân thế kỷ 19.',
+        variant: 'success',
+      },
+    ],
+  },
+};
+
+// ============================================================
+// CÂU CHUYỆN VỀ PHÁP LUẬT LAO ĐỘNG CỦA ĐỨC (Vùng xám pháp lý)
+// ============================================================
+
+export const ducThuatToanContents: Record<string, LessonContent> = {
+  // Chapter 1: Tai nạn lúc giao hàng
+  'duc-tt-1': {
+    lessonId: 'duc-tt-1',
+    title: 'Tai nạn lúc giao hàng',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Ngày xui xẻo của Đức',
+        paragraphs: [
+          'Một buổi trưa nắng gắt, Đức đang giao đơn hàng thứ 10 trong ngày. Anh vội vã vì app hiển thị "Giao trong 15 phút để giữ điểm đánh giá".',
+          'Tại ngã tư, một chiếc ô tô bất ngờ mở cửa. Đức phanh gấp, ngã xe. Kết quả: gãy tay phải, xe hỏng nặng.',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'warning',
+        title: 'Thông báo từ app',
+        text: 'Đơn hàng #2847 bị giao trễ. Điểm đánh giá của bạn giảm từ 4.7 xuống 4.5. Khách hàng đã hủy đơn.',
+        variant: 'warning',
+      },
+      {
+        type: 'text',
+        paragraphs: [
+          'Đức nằm viện 3 ngày. Chi phí:',
+          '• Viện phí + phẫu thuật: 12.000.000đ',
+          '• Thuốc và vật tư: 2.000.000đ',
+          '• Sửa xe: 3.500.000đ',
+          '• Tổng: 17.500.000đ',
+          '',
+          'Đức liên hệ công ty app. Câu trả lời: "Anh Đức là đối tác độc lập, không phải nhân viên của chúng tôi. Chúng tôi không chịu trách nhiệm về tai nạn trong quá trình anh tự kinh doanh."',
+          'Không ai từ công ty gọi hỏi thăm. Không bảo hiểm. Không hỗ trợ.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Nếu Đức là nhân viên chính thức (có hợp đồng lao động), doanh nghiệp phải làm gì khi anh bị tai nạn lao động?',
+        options: [
+          { id: 'a', text: 'Không cần làm gì vì Đức tự gây tai nạn', isCorrect: false },
+          { id: 'b', text: 'Trả toàn bộ chi phí y tế và lương trong thời gian nghỉ điều trị', isCorrect: true },
+          { id: 'c', text: 'Chỉ hỗ trợ 50% chi phí', isCorrect: false },
+          { id: 'd', text: 'Cho Đức nghỉ việc vì không thể làm việc', isCorrect: false },
+        ],
+        explanation: 'Theo Bộ Luật Lao Động 2019 (Điều 38-39), người sử dụng lao động phải trả toàn bộ chi phí y tế, trả lương trong thời gian điều trị, và bồi thường cho người lao động bị tai nạn lao động.',
+      },
+      {
+        type: 'text',
+        title: 'Đức phải tự gánh chịu tất cả',
+        paragraphs: [
+          'Vì Đức là "đối tác", anh phải:',
+          '• Tự trả 17.500.000đ chi phí (gần 3 tháng thu nhập)',
+          '• Nghỉ 6 tuần không thu nhập (tay gãy không chạy xe được)',
+          '• Mất điểm đánh giá trên app',
+          '• Không có bảo hiểm y tế để giảm viện phí',
+          '',
+          'Tổng thiệt hại ước tính: 17.500.000đ + 6 tuần × 180.000đ × 30 ngày = ~50.000.000đ',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Tai nạn của Đức phơi bày lỗ hổng lớn nhất của kinh tế Gig: người lao động gánh chịu mọi rủi ro trong khi công ty hưởng lợi nhuận. Không bảo hiểm, không bồi thường, không ai chịu trách nhiệm.',
+        variant: 'success',
+      },
+    ],
+  },
+
+  // Chapter 2: Đối tác hay Nhân viên?
+  'duc-tt-2': {
+    lessonId: 'duc-tt-2',
+    title: 'Đối tác hay Nhân viên?',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Câu hỏi pháp lý quan trọng',
+        paragraphs: [
+          'Sau tai nạn, Đức bắt đầu tìm hiểu: theo pháp luật Việt Nam, anh thực sự là "đối tác" hay "nhân viên"?',
+          'Bộ Luật Lao Động 2019 định nghĩa "quan hệ lao động" dựa trên 3 tiêu chí:',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'lightbulb',
+        title: '3 tiêu chí xác định quan hệ lao động (Điều 13, BLLĐ 2019)',
+        text: '1. Có sự quản lý, điều hành của bên thuê lao động\n2. Được trả lương/thù lao\n3. Làm việc theo điều kiện do bên thuê quy định',
+        variant: 'info',
+      },
+      {
+        type: 'text',
+        title: 'Áp dụng 3 tiêu chí vào trường hợp Đức',
+        paragraphs: [
+          '✅ Tiêu chí 1 - Quản lý, điều hành:',
+          '• App phân cuốc cho Đức (Đức không tự tìm khách)',
+          '• App theo dõi GPS, thời gian phản hồi, tỷ lệ chấp nhận',
+          '• App xử phạt khi Đức từ chối cuốc hoặc bị đánh giá thấp',
+          '',
+          '✅ Tiêu chí 2 - Trả lương/thù lao:',
+          '• App tính tiền cuốc và trả cho Đức sau khi trừ phí dịch vụ',
+          '• Đức không được tự đặt giá',
+          '',
+          '✅ Tiêu chí 3 - Điều kiện làm việc:',
+          '• App quy định đồng phục (áo khoác có logo)',
+          '• App yêu cầu xe phải đạt tiêu chuẩn',
+          '• App quy định quy trình phục vụ khách',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Theo 3 tiêu chí của Bộ Luật Lao Động, tài xế công nghệ có dấu hiệu của quan hệ lao động không?',
+        options: [
+          { id: 'a', text: 'Không, vì tài xế tự chọn giờ làm', isCorrect: false },
+          { id: 'b', text: 'Chỉ đáp ứng 1 trong 3 tiêu chí', isCorrect: false },
+          { id: 'c', text: 'Có, đáp ứng cả 3 tiêu chí quan hệ lao động', isCorrect: true },
+          { id: 'd', text: 'Không thể xác định được', isCorrect: false },
+        ],
+        explanation: 'Phân tích cho thấy tài xế công nghệ đáp ứng cả 3 tiêu chí: bị quản lý bởi thuật toán, được trả thù lao qua app, và làm việc theo điều kiện app đặt ra. Tuy nhiên, các nền tảng vẫn phân loại họ là "đối tác" để né tránh nghĩa vụ.',
+      },
+      {
+        type: 'text',
+        title: 'Vùng xám pháp lý',
+        paragraphs: [
+          'Dù tài xế đáp ứng cả 3 tiêu chí, thực tế việc áp dụng luật vẫn gặp nhiều khó khăn:',
+          '',
+          '• Hợp đồng ký là "hợp đồng hợp tác kinh doanh", không phải hợp đồng lao động',
+          '• Tài xế có thể "linh hoạt" bật/tắt app (dù bị phạt nếu tắt)',
+          '• Chưa có án lệ hoặc hướng dẫn cụ thể cho kinh tế nền tảng',
+          '',
+          'Đây chính là "vùng xám pháp lý" - khoảng trống mà luật chưa theo kịp thực tế.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Tại sao các công ty gọi xe muốn ký "hợp đồng hợp tác kinh doanh" thay vì "hợp đồng lao động"?',
+        options: [
+          { id: 'a', text: 'Vì loại hợp đồng này tốt hơn cho tài xế', isCorrect: false },
+          { id: 'b', text: 'Vì không phải đóng BHXH, BHYT, trả phép năm, bồi thường tai nạn, trợ cấp thôi việc...', isCorrect: true },
+          { id: 'c', text: 'Vì luật bắt buộc phải ký loại này', isCorrect: false },
+          { id: 'd', text: 'Vì tài xế yêu cầu ký loại này', isCorrect: false },
+        ],
+        explanation: 'Hợp đồng hợp tác kinh doanh thuộc Luật Dân sự, không phải Luật Lao động. Điều này giúp công ty không phải thực hiện bất kỳ nghĩa vụ nào theo Bộ Luật Lao Động: BHXH (~17.5%), BHYT (3%), BHTN (1%), phép năm, bồi thường tai nạn.',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Tóm tắt',
+        text: 'Trên thực tế, tài xế công nghệ đáp ứng đầy đủ tiêu chí "người lao động" theo Bộ Luật Lao Động 2019. Nhưng thông qua hợp đồng hợp tác kinh doanh, các nền tảng tận dụng vùng xám pháp lý để né tránh nghĩa vụ. Thuật toán vắt kiệt con người, trong khi pháp luật chưa theo kịp.',
+        variant: 'success',
+      },
+    ],
+  },
+
+  // Chapter 3: Quyền lợi bị đánh cắp
+  'duc-tt-3': {
+    lessonId: 'duc-tt-3',
+    title: 'Quyền lợi bị đánh cắp',
+    blocks: [
+      {
+        type: 'text',
+        title: 'Đức đang mất gì?',
+        paragraphs: [
+          'Mỗi ngày Đức chạy xe, anh đang mất đi những quyền lợi mà bất kỳ người lao động chính thức nào cũng có. Hãy cùng tính toán:',
+        ],
+      },
+      {
+        type: 'callout',
+        icon: 'warning',
+        title: 'Quyền lợi Đức bị mất (nếu lương 8 triệu/tháng)',
+        text: '• BHXH (người sử dụng lao động đóng 17.5%): 1.400.000đ/tháng\n• BHYT (người SDLĐ đóng 3%): 240.000đ/tháng\n• BHTN (người SDLĐ đóng 1%): 80.000đ/tháng\n• Phép năm có lương: 12 ngày/năm ≈ 360.000đ/tháng\n• Tổng: ~2.080.000đ/tháng mà Đức KHÔNG được nhận',
+        variant: 'warning',
+      },
+      {
+        type: 'text',
+        title: 'Hậu quả sau 20 năm',
+        paragraphs: [
+          'Hãy so sánh hai kịch bản sau 20 năm:',
+          '',
+          '👤 Kịch bản A - Đức là nhân viên chính thức:',
+          '• Đóng BHXH 20 năm → Đủ điều kiện hưởng lương hưu',
+          '• Lương hưu ước tính: ~4.500.000đ/tháng (suốt đời)',
+          '• Có thẻ BHYT → giảm 80% chi phí khám chữa bệnh',
+          '• Được bồi thường nếu bị tai nạn lao động',
+          '',
+          '👤 Kịch bản B - Đức là "đối tác" app (thực tế):',
+          '• Không đóng BHXH → KHÔNG có lương hưu',
+          '• Không có BHYT → trả 100% chi phí y tế',
+          '• Về già không có thu nhập → phụ thuộc con cái hoặc trợ cấp xã hội',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Nếu Đức chạy xe 20 năm mà không đóng BHXH, khi về già (60 tuổi) anh sẽ nhận được gì từ nhà nước?',
+        options: [
+          { id: 'a', text: 'Lương hưu hàng tháng', isCorrect: false },
+          { id: 'b', text: 'Không nhận được gì (không đủ 20 năm đóng BHXH)', isCorrect: true },
+          { id: 'c', text: 'Trợ cấp thất nghiệp', isCorrect: false },
+          { id: 'd', text: 'Bảo hiểm y tế miễn phí', isCorrect: false },
+        ],
+        explanation: 'Để hưởng lương hưu, cần đóng BHXH tối thiểu 20 năm. Nếu Đức không đóng BHXH (vì là "đối tác"), anh sẽ KHÔNG có lương hưu, KHÔNG có thẻ BHYT khi về già. Đây là cái giá thực sự của vùng xám pháp lý.',
+      },
+      {
+        type: 'text',
+        title: 'Giải pháp: Thế giới đang làm gì?',
+        paragraphs: [
+          'Các quốc gia đang tìm cách bảo vệ người lao động nền tảng:',
+          '',
+          '🔹 BHXH bắt buộc cho lao động nền tảng:',
+          'Buộc nền tảng đóng BHXH cho tài xế, giống nhân viên chính thức.',
+          '',
+          '🔹 Luật trách nhiệm nền tảng:',
+          'Nền tảng phải chịu một phần trách nhiệm về tai nạn, bảo hiểm.',
+          '',
+          '🔹 Hệ thống phúc lợi linh hoạt (Portable Benefits):',
+          'Quyền lợi gắn với cá nhân người lao động, không phụ thuộc vào một công ty cụ thể. Nhiều nền tảng cùng đóng góp.',
+          '',
+          '🇻🇳 Tại Việt Nam, Luật BHXH 2024 đã bắt đầu mở rộng đối tượng tham gia, tạo tiền đề cho việc bảo vệ lao động nền tảng.',
+        ],
+      },
+      {
+        type: 'question',
+        question: 'Giải pháp nào sẽ công bằng nhất cho cả tài xế lẫn công ty công nghệ?',
+        options: [
+          { id: 'a', text: 'Giữ nguyên hiện trạng, tài xế tự lo', isCorrect: false },
+          { id: 'b', text: 'Buộc tài xế phải là nhân viên chính thức 100%', isCorrect: false },
+          { id: 'c', text: 'Chia sẻ trách nhiệm: nền tảng đóng BHXH, tài xế giữ sự linh hoạt', isCorrect: true },
+          { id: 'd', text: 'Cấm hoàn toàn mô hình kinh tế Gig', isCorrect: false },
+        ],
+        explanation: 'Giải pháp cân bằng nhất là hệ thống phúc lợi linh hoạt: nền tảng đóng BHXH tương ứng thu nhập tài xế, tài xế vẫn giữ sự linh hoạt về giờ giấc. Đây là hướng đi mà EU và nhiều quốc gia đang theo đuổi.',
+      },
+      {
+        type: 'callout',
+        icon: 'check',
+        title: 'Kết luận',
+        text: 'Vùng xám pháp lý không phải ngẫu nhiên - nó là đặc điểm có chủ đích của kinh tế nền tảng. Thuật toán vắt kiệt con người trong khi pháp luật chưa theo kịp. Người lao động như Đức cần những khung pháp lý mới, phù hợp với thực tế thời đại số, để quyền lợi của họ không bị đánh cắp.',
+        variant: 'success',
+      },
+    ],
+  },
+};
+
 // Merge tất cả story contents
 export const allStoryContents: Record<string, LessonContent> = {
   ...minhThueContents,
@@ -1870,4 +2414,6 @@ export const allStoryContents: Record<string, LessonContent> = {
   ...minhKinhTeContents,
   ...huongDauTuContents,
   ...bacTuKinhDoanhContents,
+  ...ducCanhLaoContents,
+  ...ducThuatToanContents,
 };

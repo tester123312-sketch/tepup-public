@@ -1,9 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, BookOpen, Menu } from 'lucide-react';
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: '/', label: 'Trang chủ', icon: Home },
+    { href: '/courses', label: 'Khóa học', icon: BookOpen },
+  ];
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,20 +26,28 @@ export default function Header() {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link
-              href="/"
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <Home className="w-5 h-5" />
-              <span>Trang chủ</span>
-            </Link>
-            <Link
-              href="/"
-              className="flex items-center gap-2 px-4 py-2 text-gray-900 font-medium border-b-2 border-gray-900"
-            >
-              <BookOpen className="w-5 h-5" />
-              <span>Khóa học</span>
-            </Link>
+            {navItems.map((item) => {
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/'
+                  : pathname.startsWith(item.href);
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isActive
+                      ? 'text-gray-900 font-medium border-b-2 border-gray-900'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right side */}

@@ -157,6 +157,16 @@ export const characters: Character[] = [
     bgColor: 'bg-orange-50',
     stories: ['bactu-thue', 'bactu-kinhdoanh'],
   },
+  {
+    id: 'gig-driver',
+    name: 'Đức',
+    role: 'Tài xế công nghệ',
+    description: 'Chạy xe ôm công nghệ 12 tiếng mỗi ngày, muốn hiểu quyền lợi lao động và bảo hiểm xã hội',
+    icon: 'bike',
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-50',
+    stories: ['duc-canhlao', 'duc-thuattoan'],
+  },
 ];
 
 // Stories data
@@ -294,6 +304,50 @@ export const stories: Story[] = [
       },
     ],
     relatedCourses: ['thue-doanh-nghiep', 'kinh-te-vi-mo'],
+  },
+  // Đức's stories
+  {
+    slug: 'duc-canhlao',
+    characterId: 'gig-driver',
+    title: 'Câu chuyện về Lao động Số',
+    teaser: 'Đức chạy xe 12 tiếng mỗi ngày, kiếm 300k nhưng app giữ 25%. Anh tự hỏi: mình là người lao động hay đối tác?',
+    icon: 'smartphone',
+    estimatedTime: '~25 phút',
+    chaptersCount: 4,
+    parts: [
+      {
+        id: 'part-1',
+        name: 'Cần lao thời đại số',
+        chapters: [
+          { id: 'duc-cl-1', title: 'Một ngày của tài xế công nghệ', isCompleted: false, isLocked: false },
+          { id: 'duc-cl-2', title: 'Nền kinh tế Gig là gì?', isCompleted: false, isLocked: true },
+          { id: 'duc-cl-3', title: 'Khi thuật toán làm sếp', isCompleted: false, isLocked: true },
+          { id: 'duc-cl-4', title: 'Tầng lớp lao động mới', isCompleted: false, isLocked: true },
+        ],
+      },
+    ],
+    relatedCourses: ['tu-tuong-kinh-te', 'kinh-te-vi-mo'],
+  },
+  {
+    slug: 'duc-thuattoan',
+    characterId: 'gig-driver',
+    title: 'Câu chuyện về Pháp luật Lao động',
+    teaser: 'Đức bị tai nạn khi đang giao hàng. App nói anh là "đối tác", không phải nhân viên. Ai chịu trách nhiệm?',
+    icon: 'scale',
+    estimatedTime: '~25 phút',
+    chaptersCount: 3,
+    parts: [
+      {
+        id: 'part-1',
+        name: 'Vùng xám pháp lý',
+        chapters: [
+          { id: 'duc-tt-1', title: 'Tai nạn lúc giao hàng', isCompleted: false, isLocked: false },
+          { id: 'duc-tt-2', title: 'Đối tác hay Nhân viên?', isCompleted: false, isLocked: true },
+          { id: 'duc-tt-3', title: 'Quyền lợi bị đánh cắp', isCompleted: false, isLocked: true },
+        ],
+      },
+    ],
+    relatedCourses: ['ly-thuyet-nha-nuoc', 'tu-tuong-kinh-te'],
   },
 ];
 

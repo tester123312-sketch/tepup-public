@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Receipt, TrendingUp, PiggyBank, Store, BookOpen, ArrowRight } from 'lucide-react';
+import { Receipt, TrendingUp, PiggyBank, Store, BookOpen, Smartphone, Scale, ArrowRight } from 'lucide-react';
 import type { StoryDisplay } from '@/lib/types/content';
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -10,6 +10,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   'piggy-bank': PiggyBank,
   'store': Store,
   'book-open': BookOpen,
+  'smartphone': Smartphone,
+  'scale': Scale,
 };
 
 interface StoryCardProps {
@@ -38,6 +40,12 @@ export default function StoryCard({ story }: StoryCardProps) {
       text: 'text-orange-600',
       border: 'border-orange-200 hover:border-orange-300',
       iconBg: 'bg-orange-100',
+    },
+    'gig-driver': {
+      bg: 'bg-purple-50',
+      text: 'text-purple-600',
+      border: 'border-purple-200 hover:border-purple-300',
+      iconBg: 'bg-purple-100',
     },
   };
 
