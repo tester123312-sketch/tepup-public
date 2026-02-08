@@ -193,8 +193,7 @@ function LibraryDocumentBlockComponent({
   };
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [document, setDocument] = useState<any>(null);
+  const [libraryDocument, setLibraryDocument] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -218,7 +217,7 @@ function LibraryDocumentBlockComponent({
         setError('Không thể tải tài liệu');
         return;
       }
-      setDocument(data.data);
+      setLibraryDocument(data.data);
     } catch (err) {
       console.error('Error fetching document:', err);
       setError('Đã xảy ra lỗi khi tải tài liệu');
@@ -228,13 +227,13 @@ function LibraryDocumentBlockComponent({
   }
 
   // Get display data based on mode
-  const displayData = mode === 'reference' && document
+  const displayData = mode === 'reference' && libraryDocument
     ? {
-        title: document.title,
-        description: document.description,
-        category: document.category,
+        title: libraryDocument.title,
+        description: libraryDocument.description,
+        category: libraryDocument.category,
         estimatedReadTime: null, // Can calculate from content
-        documentContent: document.content,
+        documentContent: libraryDocument.content,
       }
     : {
         title: block.title || '',
@@ -244,22 +243,14 @@ function LibraryDocumentBlockComponent({
         documentContent: block.documentContent || { sections: [] },
       };
 
-  // Detect mobile on mount
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 640);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   // Handle ESC key to close
   useEffect(() => {
     if (!isOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsOpen(false);
     };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    window.document.addEventListener('keydown', handleEscape);
+    return () => window.document.removeEventListener('keydown', handleEscape);
   }, [isOpen]);
 
   // Show error state
@@ -282,7 +273,7 @@ function LibraryDocumentBlockComponent({
   }
 
   // Don't render if reference mode and no document loaded yet
-  if (mode === 'reference' && !document) {
+  if (mode === 'reference' && !libraryDocument) {
     return null;
   }
 
@@ -336,13 +327,7 @@ function LibraryDocumentBlockComponent({
       {/* Side Panel (Desktop) or Modal (Mobile) */}
       {isOpen && (
         <div
-          className={`
-            fixed z-50 bg-white shadow-2xl
-            ${isMobile
-              ? 'inset-0 animate-scale-in rounded-none'
-              : 'top-0 right-0 bottom-0 w-full sm:w-[600px] animate-slide-in-right'
-            }
-          `}
+          className="fixed inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:bottom-0 sm:w-[600px] z-50 bg-white shadow-2xl animate-scale-in sm:animate-slide-in-right rounded-none sm:rounded-none"
         >
           <div className="h-full flex flex-col">
             {/* Header */}
