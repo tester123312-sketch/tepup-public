@@ -89,7 +89,7 @@ export default function LibraryPage() {
               .filter((cat: string | null): cat is string => cat !== null)
           )
         ).sort();
-        setCategories(uniqueCategories);
+        setCategories(uniqueCategories as string[]);
       }
     } catch (err) {
       console.error('Error fetching library documents:', err);
