@@ -370,7 +370,7 @@ function LibraryDocumentBlockComponent({
 
               {/* Document Sections */}
               <div className="space-y-6">
-                {displayData.documentContent.sections.map((section, idx) => (
+                {displayData.documentContent.sections.map((section: { heading?: string; paragraphs: string[] }, idx: number) => (
                   <div key={idx}>
                     {section.heading && (
                       <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -378,7 +378,7 @@ function LibraryDocumentBlockComponent({
                       </h3>
                     )}
                     <div className="space-y-3">
-                      {section.paragraphs.map((para, pIdx) => (
+                      {section.paragraphs.map((para: string, pIdx: number) => (
                         <p key={pIdx} className="text-gray-700 leading-relaxed">
                           {para}
                         </p>
@@ -398,7 +398,7 @@ function LibraryDocumentBlockComponent({
                       Khái niệm liên quan
                     </h4>
                     <ul className="space-y-2">
-                      {displayData.documentContent.relatedConcepts.map((concept, idx) => (
+                      {displayData.documentContent.relatedConcepts.map((concept: string, idx: number) => (
                         <li key={idx} className="flex items-start gap-2">
                           <span className="text-purple-600 mt-1">•</span>
                           <span className="text-gray-700">{concept}</span>
@@ -417,7 +417,7 @@ function LibraryDocumentBlockComponent({
                     Đọc thêm
                   </h4>
                   <ul className="space-y-2">
-                    {displayData.documentContent.furtherReading.map((item, idx) => (
+                    {displayData.documentContent.furtherReading.map((item: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2">
                         <span className="text-purple-600 mt-1">•</span>
                         <span className="text-gray-700">{item}</span>
