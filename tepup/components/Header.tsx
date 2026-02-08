@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, BookOpen, Menu } from 'lucide-react';
+import { Home, BookOpen, Library, Menu } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
@@ -10,6 +10,7 @@ export default function Header() {
   const navItems = [
     { href: '/', label: 'Trang chủ', icon: Home },
     { href: '/courses', label: 'Khóa học', icon: BookOpen },
+    { href: '/library', label: 'Thư viện', icon: Library },
   ];
 
   return (

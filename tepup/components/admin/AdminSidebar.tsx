@@ -7,6 +7,7 @@ import {
   FolderTree,
   BookOpen,
   GraduationCap,
+  Library,
   Users,
   BookMarked,
   Settings,
@@ -35,6 +36,11 @@ const menuItems = [
     title: 'Bài học',
     href: '/admin/lessons',
     icon: GraduationCap,
+  },
+  {
+    title: 'Thư viện',
+    href: '/admin/library',
+    icon: Library,
   },
   {
     title: 'Nhân vật',

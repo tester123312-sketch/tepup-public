@@ -9,6 +9,7 @@ import {
   Image,
   MessageSquare,
   HelpCircle,
+  BookOpen,
   ChevronUp,
   ChevronDown,
 } from 'lucide-react';
@@ -16,6 +17,7 @@ import TextBlockEditor from './TextBlockEditor';
 import ImageBlockEditor from './ImageBlockEditor';
 import CalloutBlockEditor from './CalloutBlockEditor';
 import QuestionBlockEditor from './QuestionBlockEditor';
+import LibraryDocumentBlockEditor from './LibraryDocumentBlockEditor';
 
 export interface TextBlock {
   type: 'text';
@@ -45,7 +47,22 @@ export interface QuestionBlock {
   explanation?: string;
 }
 
-export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock;
+export interface LibraryDocumentBlock {
+  type: 'library-document';
+  mode?: 'reference' | 'inline';
+  documentId?: string;
+  title?: string;
+  description?: string;
+  category?: string;
+  estimatedReadTime?: string;
+  documentContent?: {
+    sections: { heading?: string; paragraphs: string[] }[];
+    relatedConcepts?: string[];
+    furtherReading?: string[];
+  };
+}
+
+export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock | LibraryDocumentBlock;
 
 interface BlockEditorProps {
   blocks: ContentBlock[];
@@ -57,6 +74,7 @@ const blockTypes = [
   { type: 'image', label: 'Hình ảnh', icon: Image },
   { type: 'callout', label: 'Callout', icon: MessageSquare },
   { type: 'question', label: 'Câu hỏi', icon: HelpCircle },
+  { type: 'library-document', label: 'Tài liệu thư viện', icon: BookOpen },
 ];
 
 function createEmptyBlock(type: string): ContentBlock {
@@ -75,6 +93,15 @@ function createEmptyBlock(type: string): ContentBlock {
           { id: '1', text: '', isCorrect: true },
           { id: '2', text: '', isCorrect: false },
         ],
+      };
+    case 'library-document':
+      return {
+        type: 'library-document',
+        title: '',
+        description: '',
+        documentContent: {
+          sections: [{ paragraphs: [''] }],
+        },
       };
     default:
       return { type: 'text', paragraphs: [''] };
@@ -145,6 +172,13 @@ export default function BlockEditor({ blocks, onChange }: BlockEditorProps) {
       case 'question':
         return (
           <QuestionBlockEditor
+            block={block}
+            onChange={(b) => updateBlock(index, b)}
+          />
+        );
+      case 'library-document':
+        return (
+          <LibraryDocumentBlockEditor
             block={block}
             onChange={(b) => updateBlock(index, b)}
           />

@@ -32,7 +32,27 @@ export interface QuestionBlock {
   explanation?: string;
 }
 
-export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock;
+export interface LibraryDocumentBlock {
+  type: 'library-document';
+  mode?: 'reference' | 'inline'; // Optional for backward compatibility
+  // Reference mode fields
+  documentId?: string;
+  // Inline mode fields (all optional for reference mode)
+  title?: string;
+  description?: string;
+  category?: string;
+  estimatedReadTime?: string;
+  documentContent?: {
+    sections: {
+      heading?: string;
+      paragraphs: string[];
+    }[];
+    relatedConcepts?: string[];
+    furtherReading?: string[];
+  };
+}
+
+export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock | LibraryDocumentBlock;
 
 // Lesson types for UI consumption
 export interface LessonDisplay {

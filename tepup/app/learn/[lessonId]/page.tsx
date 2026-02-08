@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { X, Zap, Check, XCircle, Lightbulb, MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
+import { X, Zap, Check, XCircle, Lightbulb, MessageCircle, AlertCircle, CheckCircle, BookOpen, ChevronRight, Clock } from 'lucide-react';
 import type {
   ContentBlock,
   LessonContentDisplay,
@@ -171,6 +171,284 @@ function QuestionBlockComponent({
   );
 }
 
+function LibraryDocumentBlockComponent({
+  block,
+}: {
+  block: {
+    type: 'library-document';
+    mode?: 'reference' | 'inline';
+    documentId?: string;
+    title?: string;
+    description?: string;
+    category?: string;
+    estimatedReadTime?: string;
+    documentContent?: {
+      sections: {
+        heading?: string;
+        paragraphs: string[];
+      }[];
+      relatedConcepts?: string[];
+      furtherReading?: string[];
+    };
+  };
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [document, setDocument] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Determine mode (backward compatible: no mode = inline)
+  const mode = block.mode || 'inline';
+
+  // Fetch document if reference mode
+  useEffect(() => {
+    if (mode === 'reference' && block.documentId) {
+      fetchDocument();
+    }
+  }, [mode, block.documentId]);
+
+  async function fetchDocument() {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch(`/api/admin/library/${block.documentId}`);
+      const data = await res.json();
+      if (!res.ok) {
+        setError('Không thể tải tài liệu');
+        return;
+      }
+      setDocument(data.data);
+    } catch (err) {
+      console.error('Error fetching document:', err);
+      setError('Đã xảy ra lỗi khi tải tài liệu');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // Get display data based on mode
+  const displayData = mode === 'reference' && document
+    ? {
+        title: document.title,
+        description: document.description,
+        category: document.category,
+        estimatedReadTime: null, // Can calculate from content
+        documentContent: document.content,
+      }
+    : {
+        title: block.title || '',
+        description: block.description || '',
+        category: block.category,
+        estimatedReadTime: block.estimatedReadTime,
+        documentContent: block.documentContent || { sections: [] },
+      };
+
+  // Detect mobile on mount
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Handle ESC key to close
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
+  // Show error state
+  if (mode === 'reference' && error) {
+    return (
+      <div className="mb-6 p-5 bg-red-50 border-2 border-red-200 rounded-2xl">
+        <p className="text-red-700">{error}</p>
+      </div>
+    );
+  }
+
+  // Show loading state for reference mode
+  if (mode === 'reference' && loading) {
+    return (
+      <div className="mb-6 p-5 bg-purple-50 border-2 border-purple-200 rounded-2xl flex items-center justify-center">
+        <div className="w-6 h-6 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
+        <span className="ml-3 text-purple-700">Đang tải tài liệu...</span>
+      </div>
+    );
+  }
+
+  // Don't render if reference mode and no document loaded yet
+  if (mode === 'reference' && !document) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Collapsed Preview */}
+      <div className="mb-6 bg-purple-50 border-2 border-purple-200 rounded-2xl p-5">
+        <div className="flex items-start gap-3 mb-3">
+          <BookOpen className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+          <div className="flex-1">
+            {displayData.category && (
+              <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full mb-2">
+                {displayData.category}
+              </span>
+            )}
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              {displayData.title}
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              {displayData.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between mt-4">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors"
+          >
+            <span>Xem tài liệu</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+
+          {displayData.estimatedReadTime && (
+            <span className="flex items-center gap-1 text-sm text-gray-500">
+              <Clock className="w-4 h-4" />
+              {displayData.estimatedReadTime}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Backdrop */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 animate-fade-in"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Side Panel (Desktop) or Modal (Mobile) */}
+      {isOpen && (
+        <div
+          className={`
+            fixed z-50 bg-white shadow-2xl
+            ${isMobile
+              ? 'inset-0 animate-scale-in rounded-none'
+              : 'top-0 right-0 bottom-0 w-full sm:w-[600px] animate-slide-in-right'
+            }
+          `}
+        >
+          <div className="h-full flex flex-col">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-purple-600" />
+                <span className="font-semibold text-gray-700">Tài liệu</span>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto px-6 py-6">
+              {/* Title & Meta */}
+              <div className="mb-6">
+                <div className="flex items-start justify-between mb-2">
+                  <h2 className="text-3xl font-bold text-gray-900 flex-1">
+                    {displayData.title}
+                  </h2>
+                  {displayData.estimatedReadTime && (
+                    <span className="flex items-center gap-1 text-sm text-gray-500 flex-shrink-0 ml-4">
+                      <Clock className="w-4 h-4" />
+                      {displayData.estimatedReadTime}
+                    </span>
+                  )}
+                </div>
+                {displayData.category && (
+                  <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full">
+                    {displayData.category}
+                  </span>
+                )}
+              </div>
+
+              <hr className="my-6 border-gray-200" />
+
+              {/* Document Sections */}
+              <div className="space-y-6">
+                {displayData.documentContent.sections.map((section, idx) => (
+                  <div key={idx}>
+                    {section.heading && (
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        {section.heading}
+                      </h3>
+                    )}
+                    <div className="space-y-3">
+                      {section.paragraphs.map((para, pIdx) => (
+                        <p key={pIdx} className="text-gray-700 leading-relaxed">
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Related Concepts */}
+              {displayData.documentContent.relatedConcepts &&
+               displayData.documentContent.relatedConcepts.length > 0 && (
+                <>
+                  <hr className="my-6 border-gray-200" />
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      Khái niệm liên quan
+                    </h4>
+                    <ul className="space-y-2">
+                      {displayData.documentContent.relatedConcepts.map((concept, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-purple-600 mt-1">•</span>
+                          <span className="text-gray-700">{concept}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </>
+              )}
+
+              {/* Further Reading */}
+              {displayData.documentContent.furtherReading &&
+               displayData.documentContent.furtherReading.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-semibold text-gray-900 mb-3">
+                    Đọc thêm
+                  </h4>
+                  <ul className="space-y-2">
+                    {displayData.documentContent.furtherReading.map((item, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-purple-600 mt-1">•</span>
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 interface LessonApiResponse {
   lesson: LessonWithContext['lesson'];
   course: LessonWithContext['course'];
@@ -272,6 +550,94 @@ export default function LearnPage() {
           { id: 'd', text: 'Đáp án D', isCorrect: false },
         ],
         explanation: 'Đây là giải thích cho đáp án đúng.',
+      },
+      {
+        type: 'library-document',
+        title: 'Chủ nghĩa tư bản',
+        category: 'Định nghĩa',
+        description: 'Hệ thống kinh tế dựa trên sở hữu tư nhân về tư liệu sản xuất và vận hành theo cơ chế thị trường tự do.',
+        estimatedReadTime: '4 phút',
+        documentContent: {
+          sections: [
+            {
+              heading: 'Định nghĩa',
+              paragraphs: [
+                'Chủ nghĩa tư bản là một hệ thống kinh tế - xã hội trong đó tư liệu sản xuất (như nhà máy, máy móc, đất đai) thuộc sở hữu tư nhân thay vì sở hữu nhà nước hoặc tập thể.',
+                'Trong chủ nghĩa tư bản, sản xuất và phân phối hàng hóa được điều tiết chủ yếu bởi cơ chế thị trường tự do, dựa trên quan hệ cung cầu, thay vì bởi kế hoạch hóa tập trung từ nhà nước.',
+              ],
+            },
+            {
+              heading: 'Đặc điểm chính',
+              paragraphs: [
+                'Quyền sở hữu tư nhân: Cá nhân và doanh nghiệp có quyền sở hữu, mua bán, và sử dụng tư liệu sản xuất để tạo ra lợi nhuận.',
+                'Thị trường tự do: Giá cả và sản xuất được xác định bởi quan hệ cung cầu trên thị trường, ít có sự can thiệp của nhà nước.',
+                'Cạnh tranh: Các doanh nghiệp cạnh tranh với nhau để thu hút khách hàng, thúc đẩy sáng tạo và hiệu quả kinh tế.',
+                'Động lực lợi nhuận: Mục tiêu chính của hoạt động kinh tế là tối đa hóa lợi nhuận cho chủ sở hữu.',
+              ],
+            },
+            {
+              heading: 'Lịch sử hình thành',
+              paragraphs: [
+                'Chủ nghĩa tư bản bắt đầu hình thành ở châu Âu từ thế kỷ 16-17 thông qua quá trình công nghiệp hóa và phát triển thương mại quốc tế.',
+                'Các nhà tư tưởng như Adam Smith đã đưa ra các lý thuyết nền tảng về thị trường tự do và "bàn tay vô hình" điều tiết nền kinh tế.',
+              ],
+            },
+          ],
+          relatedConcepts: [
+            'Thị trường tự do',
+            'Sở hữu tư nhân',
+            'Chủ nghĩa xã hội',
+            'Kinh tế thị trường',
+            'Cạnh tranh kinh tế',
+          ],
+          furtherReading: [
+            'Lịch sử phát triển chủ nghĩa tư bản từ thế kỷ 16',
+            'So sánh chủ nghĩa tư bản và chủ nghĩa xã hội',
+            'Vai trò của nhà nước trong nền kinh tế tư bản',
+            'Các trường phái kinh tế tư bản chủ nghĩa',
+          ],
+        },
+      },
+      {
+        type: 'library-document',
+        title: 'Cung và Cầu',
+        category: 'Khái niệm cơ bản',
+        description: 'Hai lực lượng chính quyết định giá cả và số lượng hàng hóa trong nền kinh tế thị trường.',
+        estimatedReadTime: '2 phút',
+        documentContent: {
+          sections: [
+            {
+              paragraphs: [
+                'Cung và cầu là hai khái niệm cơ bản nhất trong kinh tế học, giải thích cách thị trường hoạt động và xác định giá cả.',
+                'Cung (Supply): Số lượng hàng hóa mà người bán sẵn sàng cung cấp ở mỗi mức giá.',
+                'Cầu (Demand): Số lượng hàng hóa mà người mua muốn mua ở mỗi mức giá.',
+                'Điểm cân bằng xảy ra khi cung bằng cầu, xác định giá thị trường và số lượng giao dịch.',
+              ],
+            },
+          ],
+          relatedConcepts: [
+            'Giá cân bằng',
+            'Đường cung',
+            'Đường cầu',
+            'Thị trường',
+          ],
+        },
+      },
+      {
+        type: 'library-document',
+        title: 'Lạm phát',
+        description: 'Hiện tượng giá cả hàng hóa và dịch vụ tăng liên tục theo thời gian.',
+        documentContent: {
+          sections: [
+            {
+              paragraphs: [
+                'Lạm phát là sự gia tăng liên tục và bền vững của mức giá chung trong nền kinh tế.',
+                'Được đo lường bằng chỉ số giá tiêu dùng (CPI).',
+                'Nguyên nhân bao gồm: cung tiền tăng, cầu vượt cung, chi phí sản xuất tăng.',
+              ],
+            },
+          ],
+        },
       },
     ],
   };
@@ -459,6 +825,7 @@ export default function LearnPage() {
             <div key={index} className="animate-fade-in">
               {block.type === 'text' && <TextBlockComponent block={block} />}
               {block.type === 'callout' && <CalloutBlockComponent block={block} />}
+              {block.type === 'library-document' && <LibraryDocumentBlockComponent block={block} />}
               {block.type === 'question' && (
                 <QuestionBlockComponent
                   block={block}
