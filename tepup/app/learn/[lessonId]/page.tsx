@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { X, Zap, Check, XCircle, Lightbulb, MessageCircle, AlertCircle, CheckCircle, BookOpen, ChevronRight, Clock } from 'lucide-react';
+import { X, Check, Lightbulb, MessageCircle, AlertCircle, CheckCircle, BookOpen, ChevronRight, Clock } from 'lucide-react';
 import type {
   ContentBlock,
   LessonContentDisplay,
@@ -772,32 +772,12 @@ export default function LearnPage() {
 
           {/* Progress Bar */}
           <div className="flex-1 mx-8">
-            <div className="flex items-center gap-2">
-              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-green-500 transition-all duration-500"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              {/* Progress Dots */}
-              <div className="flex gap-1">
-                {content.blocks.slice(0, Math.min(5, totalBlocks)).map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index < visibleBlocks ? 'bg-green-500' : 'bg-gray-200'
-                    }`}
-                  />
-                ))}
-                {totalBlocks > 5 && <span className="text-xs text-gray-400">+{totalBlocks - 5}</span>}
-              </div>
+            <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-green-500 transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
             </div>
-          </div>
-
-          {/* Points */}
-          <div className="flex items-center gap-1 text-gray-600">
-            <span className="font-semibold">{points}</span>
-            <Zap className="w-5 h-5 text-yellow-500" />
           </div>
         </div>
       </header>
@@ -807,7 +787,7 @@ export default function LearnPage() {
         <div className="max-w-3xl mx-auto px-4 py-8">
           {/* Render visible blocks */}
           {content.blocks.slice(0, visibleBlocks).map((block, index) => (
-            <div key={index} className="animate-fade-in">
+            <div key={index} className="animate-fade-in" ref={index === visibleBlocks - 1 ? contentEndRef : undefined}>
               {block.type === 'text' && <TextBlockComponent block={block} />}
               {block.type === 'callout' && <CalloutBlockComponent block={block} />}
               {block.type === 'library-document' && <LibraryDocumentBlockComponent block={block} />}
@@ -823,9 +803,6 @@ export default function LearnPage() {
               )}
             </div>
           ))}
-          
-          {/* Scroll target */}
-          <div ref={contentEndRef} />
         </div>
       </main>
 
