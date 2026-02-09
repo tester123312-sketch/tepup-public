@@ -211,7 +211,7 @@ function LibraryDocumentBlockComponent({
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`/api/admin/library/${block.documentId}`);
+      const res = await fetch(`/api/library/${block.documentId}`);
       const data = await res.json();
       if (!res.ok) {
         setError('Không thể tải tài liệu');
