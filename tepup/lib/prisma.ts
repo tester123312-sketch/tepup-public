@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -8,8 +9,18 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient() {
   const connectionString = process.env.DATABASE_URL!;
 
-  // Use PrismaPg with connection string directly
-  const adapter = new PrismaPg({ connectionString });
+  // Configure pg Pool for Supabase transaction pooler (port 6543)
+  // - max: limit connections for serverless environments
+  // - connectionTimeoutMillis: timeout for acquiring a connection
+  // - idleTimeoutMillis: close idle connections after this time
+  const pool = new pg.Pool({
+    connectionString,
+    max: 5,
+    connectionTimeoutMillis: 10_000,
+    idleTimeoutMillis: 30_000,
+  });
+
+  const adapter = new PrismaPg(pool);
 
   return new PrismaClient({
     adapter,

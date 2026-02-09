@@ -28,6 +28,7 @@ export default function LibraryPage() {
   const [categoryFilter, setCategoryFilter] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedDocument, setSelectedDocument] = useState<LibraryDocument | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -74,17 +75,20 @@ export default function LibraryPage() {
 
   async function fetchDocuments() {
     try {
-      const res = await fetch('/api/admin/library');
+      setError(null);
+      const res = await fetch('/api/library');
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
       const data = await res.json();
       if (data.data) {
-        const activeDocuments = data.data.filter((doc: any) => doc.isActive);
-        setDocuments(activeDocuments);
-        setFilteredDocuments(activeDocuments);
+        setDocuments(data.data);
+        setFilteredDocuments(data.data);
 
         // Extract unique categories
         const uniqueCategories = Array.from(
           new Set(
-            activeDocuments
+            data.data
               .map((doc: LibraryDocument) => doc.category)
               .filter((cat: string | null): cat is string => cat !== null)
           )
@@ -93,6 +97,7 @@ export default function LibraryPage() {
       }
     } catch (err) {
       console.error('Error fetching library documents:', err);
+      setError('Không thể tải dữ liệu thư viện. Vui lòng thử lại.');
     } finally {
       setLoading(false);
     }
@@ -155,6 +160,19 @@ export default function LibraryPage() {
             </div>
           )}
         </div>
+
+        {/* Error State */}
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 flex items-center justify-between">
+            <p className="text-red-700 text-sm">{error}</p>
+            <button
+              onClick={() => { setLoading(true); fetchDocuments(); }}
+              className="ml-4 px-4 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-sm font-medium rounded-lg transition-colors"
+            >
+              Thử lại
+            </button>
+          </div>
+        )}
 
         {/* Loading State */}
         {loading && (
