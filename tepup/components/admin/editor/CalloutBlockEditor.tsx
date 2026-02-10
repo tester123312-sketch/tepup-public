@@ -97,7 +97,7 @@ export default function CalloutBlockEditor({
                 {block.title && (
                   <p className="font-medium mb-1">{block.title}</p>
                 )}
-                <p className="text-sm">{block.text}</p>
+                <p className="text-sm whitespace-pre-line">{block.text}</p>
               </div>
             </div>
           </div>

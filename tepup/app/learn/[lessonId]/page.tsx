@@ -21,7 +21,7 @@ function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; 
       )}
       <div className="space-y-4">
         {block.paragraphs.map((paragraph, index) => (
-          <p key={index} className="text-gray-700 leading-relaxed text-lg">
+          <p key={index} className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
             {paragraph}
           </p>
         ))}
@@ -76,7 +76,7 @@ function CalloutBlockComponent({ block }: { block: { type: 'callout'; icon?: str
           {block.title && (
             <h3 className={`font-semibold ${variant.title} mb-1`}>{block.title}</h3>
           )}
-          <p className={`${variant.text} leading-relaxed`}>{block.text}</p>
+          <p className={`${variant.text} leading-relaxed whitespace-pre-line`}>{block.text}</p>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@ function QuestionBlockComponent({
 }) {
   return (
     <div className="mb-6">
-      <p className="text-lg text-gray-900 mb-4 font-medium">{block.question}</p>
+      <p className="text-lg text-gray-900 mb-4 font-medium whitespace-pre-line">{block.question}</p>
 
       <div className="space-y-3">
         {block.options.map((option) => {
@@ -161,7 +161,7 @@ function QuestionBlockComponent({
           ref={explanationRef}
           className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}
         >
-          <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'}`}>
+          <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} whitespace-pre-line`}>
             <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
             {block.explanation}
           </p>
@@ -379,7 +379,7 @@ function LibraryDocumentBlockComponent({
                     )}
                     <div className="space-y-3">
                       {section.paragraphs.map((para: string, pIdx: number) => (
-                        <p key={pIdx} className="text-gray-700 leading-relaxed">
+                        <p key={pIdx} className="text-gray-700 leading-relaxed whitespace-pre-line">
                           {para}
                         </p>
                       ))}
