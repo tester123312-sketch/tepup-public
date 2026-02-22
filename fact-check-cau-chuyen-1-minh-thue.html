@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fact-check: Câu chuyện 1 - Minh - Thuế</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.6; padding: 20px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 { text-align: center; color: #1a1a2e; margin-bottom: 8px; font-size: 1.8rem; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.95rem; }
+  .summary-box { background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: white; border-radius: 16px; padding: 24px; margin-bottom: 30px; }
+  .summary-box h2 { margin-bottom: 12px; font-size: 1.2rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .summary-stat { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 14px; text-align: center; }
+  .summary-stat .num { font-size: 2rem; font-weight: 700; }
+  .summary-stat .label { font-size: 0.8rem; opacity: 0.9; }
+  .character-card { background: white; border-radius: 14px; padding: 20px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; gap: 16px; align-items: center; }
+  .character-card .avatar { width: 60px; height: 60px; background: #e0f7fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+  .character-card .info h3 { font-size: 1.1rem; margin-bottom: 4px; }
+  .character-card .info p { color: #666; font-size: 0.9rem; }
+  .chapter-card { background: white; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 24px; overflow: hidden; }
+  .chapter-header { padding: 18px 24px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; }
+  .chapter-header .ch-tag { background: #e0f7fa; color: #00838f; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+  .chapter-header h3 { font-size: 1.1rem; color: #1a1a2e; }
+  .chapter-body { padding: 20px 24px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.9rem; }
+  th { background: #f1f3f5; padding: 10px 14px; text-align: left; font-weight: 600; border-bottom: 2px solid #dee2e6; }
+  td { padding: 10px 14px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:hover { background: #fafbfc; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+  .badge-ok { background: #d4edda; color: #155724; }
+  .badge-fix { background: #f8d7da; color: #721c24; }
+  .badge-warn { background: #fff3cd; color: #856404; }
+  .note { background: #fff8e1; border-left: 4px solid #ffc107; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; }
+  .fix-note { background: #fce4ec; border-left: 4px solid #e53935; padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 0.88rem; }
+  .critical { background: #ffebee; border: 2px solid #e53935; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+  .critical h4 { color: #c62828; margin-bottom: 8px; }
+  .footer { text-align: center; color: #999; margin-top: 40px; font-size: 0.85rem; padding: 20px; border-top: 1px solid #eee; }
+  @media (max-width: 768px) {
+    body { padding: 10px; }
+    .chapter-header { flex-direction: column; align-items: flex-start; }
+    table { font-size: 0.82rem; }
+    td, th { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Fact-check: Câu chuyện 1 - Minh</h1>
+<p class="subtitle">Câu chuyện về Thuế | Nhân vật: Minh - Sinh viên năm 3 | Ngày kiểm tra: 10/02/2026</p>
+
+<div class="character-card">
+  <div class="avatar">&#127891;</div>
+  <div class="info">
+    <h3>Minh - Sinh viên năm 3, ngành CNTT</h3>
+    <p>Vừa tốt nghiệp, nhận lương đầu tiên 8 triệu/tháng tại startup. Tìm hiểu về thuế TNCN, cách tính thuế, và quyết toán.</p>
+  </div>
+</div>
+
+<div class="summary-box">
+  <h2>Tổng quan</h2>
+  <div class="summary-grid">
+    <div class="summary-stat">
+      <div class="num">4</div>
+      <div class="label">Chương</div>
+    </div>
+    <div class="summary-stat">
+      <div class="num" style="color:#98fb98">~12</div>
+      <div class="label">Nội dung OK</div>
+    </div>
+    <div class="summary-stat">
+      <div class="num" style="color:#ffcccb">6</div>
+      <div class="label">Cần sửa</div>
+    </div>
+    <div class="summary-stat">
+      <div class="num" style="color:#ff6b6b">NGHIÊM TRỌNG</div>
+      <div class="label">Toàn bộ phép tính thuế sai do luật mới 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="critical">
+  <h4>&#9888; CẢNH BÁO QUAN TRỌNG</h4>
+  <p>Câu chuyện này sử dụng <strong>Luật thuế TNCN cũ</strong> (giảm trừ 11 triệu, biểu thuế 7 bậc). Từ <strong>01/01/2026</strong>, Luật thuế TNCN sửa đổi đã có hiệu lực với nhiều thay đổi lớn:</p>
+  <ul style="margin: 10px 0 0 20px;">
+    <li>Giảm trừ gia cảnh bản thân: <strong>11 triệu → 15,5 triệu/tháng</strong></li>
+    <li>Giảm trừ người phụ thuộc: <strong>4,4 triệu → 6,2 triệu/tháng</strong></li>
+    <li>Biểu thuế lũy tiến: <strong>7 bậc → 5 bậc</strong></li>
+    <li><strong>Hệ quả:</strong> Với lương 15 triệu gross, Minh KHÔNG CÒN phải đóng thuế TNCN (vì giảm trừ 15,5tr > 15tr - BHXH). Toàn bộ kịch bản Chương 3 bị ảnh hưởng.</li>
+  </ul>
+</div>
+
+<!-- Chương 1 -->
+<div class="chapter-card">
+  <div class="chapter-header">
+    <span class="ch-tag">Chương 1/4</span>
+    <h3>Ngày nhận lương</h3>
+  </div>
+  <div class="chapter-body">
+    <table>
+      <thead>
+        <tr><th style="width:35%">Nội dung trên app</th><th style="width:45%">Fact-check</th><th style="width:20%">Đánh giá</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Minh lương 8 triệu/tháng, chưa đến mức chịu thuế TNCN</td>
+          <td>Đúng. Dù theo luật cũ (giảm trừ 11tr) hay mới (15,5tr), lương 8 triệu đều dưới mức chịu thuế.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Mức giảm trừ gia cảnh bản thân: <strong>11 triệu/tháng (132 triệu/năm)</strong></td>
+          <td><strong>ĐÃ LỖI THỜI.</strong> Từ 01/01/2026, mức giảm trừ bản thân tăng lên <strong>15,5 triệu/tháng (186 triệu/năm)</strong> theo Luật thuế TNCN sửa đổi.</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>"Thu nhập tính thuế dưới 11 triệu/tháng → không phải đóng thuế"</td>
+          <td><strong>SAI.</strong> Giảm trừ mới là 15,5 triệu. Cần sửa thành: "thu nhập tính thuế dưới 15,5 triệu/tháng".</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>Concept Gross vs Net, mua cà phê có VAT</td>
+          <td>Đúng. Các khái niệm cơ bản này chính xác.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Chương 2 -->
+<div class="chapter-card">
+  <div class="chapter-header">
+    <span class="ch-tag">Chương 2/4</span>
+    <h3>Thuế là gì nhỉ?</h3>
+  </div>
+  <div class="chapter-body">
+    <table>
+      <thead>
+        <tr><th style="width:35%">Nội dung trên app</th><th style="width:45%">Fact-check</th><th style="width:20%">Đánh giá</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thuế TNCN: đánh trên thu nhập từ lương, thưởng, làm thêm</td>
+          <td>Đúng. Thu nhập từ tiền lương, tiền công là một trong các loại thu nhập chịu thuế TNCN.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>BHXH: "không phải thuế nhưng cũng bị trừ từ lương"</td>
+          <td>Đúng. BHXH là khoản bảo hiểm bắt buộc, khác với thuế về bản chất (đóng góp để hưởng lại).</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>BHXH 8%, BHYT 1.5%</td>
+          <td>Đúng. Tỷ lệ NLĐ đóng: BHXH 8% + BHYT 1,5% + BHTN 1% = 10,5%. Vẫn giữ nguyên năm 2026.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Câu hỏi: VAT KHÔNG trừ trực tiếp từ lương → Đáp án C</td>
+          <td>Đúng. VAT là thuế gián thu, trả khi mua hàng hóa/dịch vụ.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Lương Gross vs Net: Gross = tổng trước trừ, Net = thực nhận</td>
+          <td>Đúng. Định nghĩa chính xác.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Câu hỏi: Gross 15tr - trừ 2tr = Net 13tr → Đáp án C</td>
+          <td>Đúng. Phép tính đơn giản, chính xác.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <strong>Nhận xét:</strong> Chương này chủ yếu giải thích khái niệm, không có số liệu cụ thể nào bị ảnh hưởng bởi luật mới. Chất lượng tốt.
+    </div>
+  </div>
+</div>
+
+<!-- Chương 3 -->
+<div class="chapter-card">
+  <div class="chapter-header">
+    <span class="ch-tag">Chương 3/4</span>
+    <h3>Tính thuế như thế nào?</h3>
+  </div>
+  <div class="chapter-body">
+    <table>
+      <thead>
+        <tr><th style="width:35%">Nội dung trên app</th><th style="width:45%">Fact-check</th><th style="width:20%">Đánh giá</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Biểu thuế lũy tiến 7 bậc: 5%, 10%, 15%, 20%, 25%, 30%, 35%</td>
+          <td><strong>ĐÃ LỖI THỜI.</strong> Từ 2026, biểu thuế chỉ còn <strong>5 bậc</strong>:<br>
+          0-10tr: 5% | 10-20tr: 10% | 20-40tr: 20% | 40-100tr: 30% | >100tr: 35%</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>BHXH+BHYT+BHTN = 15tr × 10.5% = 1.575.000đ</td>
+          <td>Đúng. Tỷ lệ 10,5% vẫn giữ nguyên, phép tính chính xác.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Thu nhập tính thuế = 15tr - 1.575.000 - <strong>11tr</strong> = 2.425.000đ</td>
+          <td><strong>SAI.</strong> Giảm trừ bản thân từ 2026 là <strong>15,5tr</strong>:<br>
+          15tr - 1.575.000 - 15.500.000 = <strong>-2.075.000đ</strong> (âm)<br>
+          → Minh <strong>KHÔNG phải đóng thuế TNCN</strong> ở mức lương 15tr gross!</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>Thuế TNCN = 2.425.000 × 5% = 121.250đ</td>
+          <td><strong>SAI</strong> (hệ quả từ lỗi trên). Theo luật 2026, thuế = 0đ.</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>Lương Net = 15tr - 1.696.250 = 13.303.750đ</td>
+          <td><strong>SAI.</strong> Theo luật 2026: Net = 15tr - 1.575.000 (BHXH) - 0 (thuế) = <strong>13.425.000đ</strong></td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+        <tr>
+          <td>Giảm trừ người phụ thuộc: thêm <strong>4.4 triệu/người</strong></td>
+          <td><strong>ĐÃ LỖI THỜI.</strong> Từ 2026: mức mới là <strong>6,2 triệu/tháng/người phụ thuộc</strong>.<br>
+          Ví dụ: Nuôi mẹ già → tổng giảm trừ = 15,5 + 6,2 = <strong>21,7 triệu/tháng</strong> (không phải 15,4tr).</td>
+          <td><span class="badge badge-fix">Cần sửa</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="critical">
+      <h4>&#9888; Toàn bộ kịch bản Chương 3 cần viết lại</h4>
+      <p>Với giảm trừ mới 15,5tr/tháng, mức lương 15 triệu gross không còn phải đóng thuế. Để kịch bản tính thuế vẫn hoạt động, cần <strong>tăng mức lương trong kịch bản</strong>, ví dụ:</p>
+      <ul style="margin: 8px 0 0 20px;">
+        <li><strong>Lương gross 20 triệu/tháng:</strong></li>
+        <li>BHXH: 20tr × 10,5% = 2.100.000đ</li>
+        <li>Thu nhập tính thuế: 20tr - 2.100.000 - 15.500.000 = <strong>2.400.000đ</strong></li>
+        <li>Thuế TNCN: 2.400.000 × 5% = <strong>120.000đ</strong></li>
+        <li>Net: 20tr - 2.100.000 - 120.000 = <strong>17.780.000đ</strong></li>
+      </ul>
+      <p style="margin-top: 8px; font-style: italic;">Mức lương 20 triệu cũng hợp lý hơn cho sinh viên mới ra trường ngành CNTT tại thời điểm 2026.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Chương 4 -->
+<div class="chapter-card">
+  <div class="chapter-header">
+    <span class="ch-tag">Chương 4/4</span>
+    <h3>Kê khai lần đầu</h3>
+  </div>
+  <div class="chapter-body">
+    <table>
+      <thead>
+        <tr><th style="width:35%">Nội dung trên app</th><th style="width:45%">Fact-check</th><th style="width:20%">Đánh giá</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Quyết toán thuế: tính lại thuế cả năm, so sánh với thuế đã đóng hàng tháng</td>
+          <td>Đúng. Đây là định nghĩa chính xác của quyết toán thuế TNCN.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Chỉ có thu nhập 1 nơi → ủy quyền cho công ty quyết toán</td>
+          <td>Đúng. Điều kiện ủy quyền: chỉ có thu nhập từ 1 tổ chức chi trả, đã đăng ký giảm trừ gia cảnh tại đó.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Thu nhập từ 2 nơi trở lên → bắt buộc tự quyết toán</td>
+          <td>Đúng về nguyên tắc. Cụ thể: cá nhân có thu nhập từ 2 nơi trở lên mà có số thuế phải nộp thêm thì phải tự quyết toán.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Mã số thuế gồm 10 chữ số, ví dụ: 8123456789</td>
+          <td>Đúng. MST cá nhân gồm 10 chữ số.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Hạn nộp tờ khai quyết toán: <strong>31/03</strong> năm sau</td>
+          <td>Chưa đầy đủ. 31/03 chỉ đúng cho <strong>tổ chức trả thu nhập</strong>. Cá nhân tự quyết toán có hạn chót <strong>30/04</strong> (hoặc ngày làm việc tiếp theo nếu trùng ngày lễ).</td>
+          <td><span class="badge badge-warn">Nên bổ sung</span></td>
+        </tr>
+        <tr>
+          <td>Thời gian hoàn thuế: 10-45 ngày tùy trường hợp</td>
+          <td>Gần đúng. Theo quy định: hoàn thuế trước kiểm tra: 6 ngày làm việc; kiểm tra trước hoàn thuế: 40 ngày làm việc. Con số "10-45 ngày" là hợp lý.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Đóng thừa thuế → được hoàn lại</td>
+          <td>Đúng. Theo Luật quản lý thuế, nếu nộp thừa thuế TNCN thì được hoàn trả.</td>
+          <td><span class="badge badge-ok">OK</span></td>
+        </tr>
+        <tr>
+          <td>Thuế cả năm khoảng 600.000đ (trong email HR)</td>
+          <td>Con số này nhất quán với phép tính (cũ): 121.250đ × ~5 tháng (sau khi tăng lương) ≈ 600k. Tuy nhiên, <strong>theo luật 2026 con số này sẽ thay đổi</strong> vì biểu thuế và giảm trừ đã đổi.</td>
+          <td><span class="badge badge-warn">Cần cập nhật</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Tổng kết -->
+<div class="chapter-card" style="border: 2px solid #00b4d8;">
+  <div class="chapter-header" style="background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); color: white;">
+    <h3 style="color: white;">Tổng kết các nội dung cần sửa</h3>
+  </div>
+  <div class="chapter-body">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Vị trí</th><th>Nội dung sai</th><th>Sửa thành</th><th>Mức độ</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Ch.1, Ch.3</td>
+          <td>Giảm trừ gia cảnh bản thân: 11 triệu/tháng</td>
+          <td><strong>15,5 triệu/tháng</strong> (186 triệu/năm)</td>
+          <td><span class="badge badge-fix">Lỗi thời</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Ch.3</td>
+          <td>Giảm trừ người phụ thuộc: 4,4 triệu/tháng</td>
+          <td><strong>6,2 triệu/tháng</strong></td>
+          <td><span class="badge badge-fix">Lỗi thời</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Ch.3</td>
+          <td>Biểu thuế lũy tiến 7 bậc (5%-35%)</td>
+          <td><strong>5 bậc</strong>: 5%, 10%, 20%, 30%, 35%</td>
+          <td><span class="badge badge-fix">Lỗi thời</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Ch.3</td>
+          <td>Toàn bộ phép tính thuế cho Minh (lương 15tr → thuế 121.250đ)</td>
+          <td>Với giảm trừ 15,5tr, lương 15tr gross → thuế = 0đ. Cần <strong>tăng lương trong kịch bản lên ~20tr</strong> để phép tính có ý nghĩa.</td>
+          <td><span class="badge badge-fix">Sai nghiêm trọng</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Ch.3</td>
+          <td>Net = 13.303.750đ</td>
+          <td>Cần tính lại theo kịch bản mới</td>
+          <td><span class="badge badge-fix">Sai</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Ch.4</td>
+          <td>Hạn quyết toán: chỉ nêu 31/03</td>
+          <td>Bổ sung: cá nhân tự QT hạn chót <strong>30/04</strong></td>
+          <td><span class="badge badge-warn">Thiếu</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="critical">
+      <h4>&#128221; Khuyến nghị hành động</h4>
+      <p>Câu chuyện này cần được <strong>cập nhật toàn diện</strong> theo Luật thuế TNCN sửa đổi 2026. Cụ thể:</p>
+      <ol style="margin: 8px 0 0 20px; line-height: 2;">
+        <li>Cập nhật tất cả mức giảm trừ gia cảnh (bản thân + người phụ thuộc)</li>
+        <li>Thay biểu thuế 7 bậc bằng 5 bậc</li>
+        <li>Thay mức lương 15 triệu bằng 20 triệu (hoặc cao hơn) để kịch bản tính thuế hoạt động</li>
+        <li>Tính lại toàn bộ con số thuế, lương net</li>
+        <li>Cập nhật câu hỏi trắc nghiệm và đáp án cho phù hợp</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Fact-check bởi Claude AI | Tepup Education Platform</p>
+  <p>Nguồn: Luật thuế TNCN sửa đổi 2026, Nghị quyết QH, Thư viện Pháp luật, Luật Việt Nam, VietnamNet</p>
+</div>
+
+</div>
+</body>
+</html>
