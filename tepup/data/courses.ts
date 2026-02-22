@@ -82,7 +82,23 @@ export interface QuestionBlock {
   explanation?: string;
 }
 
-export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock;
+export interface LibraryDocumentBlock {
+  type: 'library-document';
+  mode?: 'reference' | 'inline';
+  documentId?: string;
+  documentSlug?: string;
+  title?: string;
+  description?: string;
+  category?: string;
+  estimatedReadTime?: string;
+  documentContent?: {
+    sections: { heading?: string; paragraphs: string[] }[];
+    relatedConcepts?: string[];
+    furtherReading?: string[];
+  };
+}
+
+export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock | LibraryDocumentBlock;
 
 export interface LessonContent {
   lessonId: string;
