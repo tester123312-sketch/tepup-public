@@ -11,6 +11,7 @@ import type {
   ChapterContentDisplay,
 } from '@/lib/types/content';
 import { useProgress } from '@/lib/contexts/ProgressContext';
+import TextSelectionPopover from '@/components/ai/TextSelectionPopover';
 
 // Content Block Components
 function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; paragraphs: string[] } }) {
@@ -799,6 +800,7 @@ export default function LearnPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      <TextSelectionPopover />
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
