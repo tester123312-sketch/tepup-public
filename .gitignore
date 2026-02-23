@@ -1,0 +1,5 @@
+# Workspace (local-only files)
+_workspace/
+
+# macOS
+.DS_Store
