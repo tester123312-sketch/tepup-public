@@ -5,17 +5,14 @@ import { usePathname } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
   LayoutDashboard,
-  FolderTree,
+  FileEdit,
+  Send,
+  PlusCircle,
+  CheckSquare,
   BookOpen,
-  GraduationCap,
-  Library,
-  Users,
-  BookMarked,
   Settings,
   ChevronLeft,
   Menu,
-  CheckSquare,
-  UserCog,
 } from 'lucide-react';
 import { useState } from 'react';
 import { canReviewContent } from '@/lib/role-utils';
@@ -24,67 +21,43 @@ import type { UserRole } from '@prisma/client';
 const allMenuItems = [
   {
     title: 'Dashboard',
-    href: '/admin',
+    href: '/contributor',
     icon: LayoutDashboard,
-    minRole: 'USER' as const,
+    minRole: 'CONTRIBUTOR' as UserRole,
+  },
+  {
+    title: 'Bản nháp',
+    href: '/contributor/drafts',
+    icon: FileEdit,
+    minRole: 'CONTRIBUTOR' as UserRole,
+  },
+  {
+    title: 'Đã gửi',
+    href: '/contributor/submissions',
+    icon: Send,
+    minRole: 'CONTRIBUTOR' as UserRole,
+  },
+  {
+    title: 'Tạo khóa học mới',
+    href: '/contributor/courses/new',
+    icon: PlusCircle,
+    minRole: 'CONTRIBUTOR' as UserRole,
   },
   {
     title: 'Duyệt nội dung',
-    href: '/admin/reviews',
+    href: '/contributor/reviews',
     icon: CheckSquare,
-    minRole: 'REVIEWER' as const,
-  },
-  {
-    title: 'Danh mục',
-    href: '/admin/categories',
-    icon: FolderTree,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Khóa học',
-    href: '/admin/courses',
-    icon: BookOpen,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Bài học',
-    href: '/admin/lessons',
-    icon: GraduationCap,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Thư viện',
-    href: '/admin/library',
-    icon: Library,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Nhân vật',
-    href: '/admin/characters',
-    icon: Users,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Câu chuyện',
-    href: '/admin/stories',
-    icon: BookMarked,
-    minRole: 'ADMIN' as const,
-  },
-  {
-    title: 'Người dùng',
-    href: '/admin/users',
-    icon: UserCog,
-    minRole: 'ADMIN' as const,
+    minRole: 'REVIEWER' as UserRole,
   },
 ];
 
-export default function AdminSidebar() {
+export default function ContributorSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const { data: session } = useSession();
-  const userRole = (session?.user?.role || 'USER') as UserRole;
+  const userRole = (session?.user?.role || 'CONTRIBUTOR') as UserRole;
+
   const menuItems = allMenuItems.filter((item) => {
-    if (item.minRole === 'ADMIN') return userRole === 'ADMIN';
     if (item.minRole === 'REVIEWER') return canReviewContent(userRole);
     return true;
   });
@@ -115,12 +88,12 @@ export default function AdminSidebar() {
       >
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200">
-          <Link href="/admin" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+          <Link href="/contributor" className="flex items-center gap-2">
+            <div className="w-10 h-10 bg-teal-500 rounded-xl flex items-center justify-center flex-shrink-0">
               <span className="text-white font-bold text-xl">T</span>
             </div>
             {!collapsed && (
-              <span className="font-bold text-gray-900">Tepup Admin</span>
+              <span className="font-bold text-gray-900">Contributor</span>
             )}
           </Link>
           <button
@@ -140,7 +113,7 @@ export default function AdminSidebar() {
           {menuItems.map((item) => {
             const isActive =
               pathname === item.href ||
-              (item.href !== '/admin' && pathname.startsWith(item.href));
+              (item.href !== '/contributor' && pathname.startsWith(item.href));
             const Icon = item.icon;
 
             return (
@@ -149,7 +122,7 @@ export default function AdminSidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors ${
                   isActive
-                    ? 'bg-blue-50 text-blue-600'
+                    ? 'bg-teal-50 text-teal-600'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
                 title={collapsed ? item.title : undefined}
@@ -161,13 +134,21 @@ export default function AdminSidebar() {
           })}
         </nav>
 
-        {/* Settings at bottom - all users */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        {/* Bottom links */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 space-y-1">
           <Link
-            href="/admin/settings"
+            href="/contributor-guide"
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors text-gray-600 hover:bg-gray-50`}
+            title={collapsed ? 'Hướng dẫn' : undefined}
+          >
+            <BookOpen className="w-5 h-5 flex-shrink-0" />
+            {!collapsed && <span className="font-medium">Hướng dẫn</span>}
+          </Link>
+          <Link
+            href="/contributor/settings"
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors ${
-              pathname === '/admin/settings'
-                ? 'bg-blue-50 text-blue-600'
+              pathname === '/contributor/settings'
+                ? 'bg-teal-50 text-teal-600'
                 : 'text-gray-600 hover:bg-gray-50'
             }`}
             title={collapsed ? 'Cài đặt' : undefined}

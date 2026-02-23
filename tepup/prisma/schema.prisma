@@ -9,16 +9,22 @@ datasource db {
 model User {
   id            String         @id @default(cuid())
   name          String?
-  email         String         @unique
+  username      String?        @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   password      String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   role          UserRole       @default(USER)
+  isBanned      Boolean        @default(false)
+  bannedAt      DateTime?
+  bannedReason  String?
   accounts      Account[]
   sessions      Session[]
   progress      UserProgress[]
+  contributions Contribution[]
+  reviews       Review[]
 }
 
 model Account {
@@ -280,7 +286,68 @@ model LibraryDocument {
   @@index([sortOrder])
 }
 
+model Contribution {
+  id            String           @id @default(cuid())
+  contributorId String
+  type          ContributionType
+  targetId      String?
+  status        ContentStatus    @default(DRAFT)
+  data          Json
+  message       String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  submittedAt   DateTime?
+  resolvedAt    DateTime?
+
+  contributor   User             @relation(fields: [contributorId], references: [id], onDelete: Cascade)
+  reviews       Review[]
+
+  @@index([contributorId])
+  @@index([status])
+  @@index([type])
+}
+
+model Review {
+  id             String       @id @default(cuid())
+  contributionId String
+  reviewerId     String
+  action         ReviewAction
+  feedback       String?
+  createdAt      DateTime     @default(now())
+
+  contribution   Contribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  reviewer       User         @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+
+  @@index([contributionId])
+  @@index([reviewerId])
+}
+
 enum UserRole {
   USER
+  CONTRIBUTOR
+  TRUSTED_CONTRIBUTOR
+  REVIEWER
   ADMIN
+}
+
+enum ContentStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
+enum ContributionType {
+  NEW_COURSE
+  NEW_LEVEL
+  NEW_LESSON
+  EDIT_LESSON_CONTENT
+  EDIT_COURSE
+}
+
+enum ReviewAction {
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
 }

@@ -14,20 +14,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        email: { label: 'Email', type: 'email' },
+        identifier: { label: 'Email hoặc Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Email và mật khẩu là bắt buộc');
+        if (!credentials?.identifier || !credentials?.password) {
+          throw new Error('Vui lòng nhập thông tin đăng nhập');
         }
 
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email as string },
-        });
+        const identifier = credentials.identifier as string;
+        const user = await prisma.user.findUnique({ where: { username: identifier } });
 
         if (!user || !user.password) {
-          throw new Error('Email hoặc mật khẩu không đúng');
+          throw new Error('Thông tin đăng nhập không đúng');
+        }
+
+        if (user.isBanned) {
+          throw new Error('Tài khoản của bạn đã bị khóa');
         }
 
         const isPasswordValid = await bcrypt.compare(
@@ -36,13 +39,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         if (!isPasswordValid) {
-          throw new Error('Email hoặc mật khẩu không đúng');
+          throw new Error('Thông tin đăng nhập không đúng');
         }
 
         return {
           id: user.id,
           email: user.email,
           name: user.name,
+          username: user.username,
           image: user.image,
           role: user.role,
         };
@@ -68,6 +72,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        token.username = user.username;
         token.role = user.role;
       }
       return token;
@@ -75,6 +80,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        session.user.username = token.username as string | null;
         session.user.role = token.role as UserRole;
       }
       return session;

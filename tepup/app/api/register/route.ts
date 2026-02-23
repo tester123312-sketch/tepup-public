@@ -2,57 +2,68 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/lib/prisma';
 
+const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,20}$/;
+
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, password } = await req.json();
+    const { password, username, mode } = await req.json();
 
-    // Validate input
-    if (!email || !password) {
+    // Only allow contributor registration
+    if (mode !== 'contributor') {
       return NextResponse.json(
-        { error: 'Email và mật khẩu là bắt buộc' },
-        { status: 400 }
+        { error: 'Chỉ hỗ trợ đăng ký bằng tài khoản contributor' },
+        { status: 403 }
       );
     }
 
-    if (password.length < 6) {
+    // Validate password
+    if (!password || password.length < 6) {
       return NextResponse.json(
         { error: 'Mật khẩu phải có ít nhất 6 ký tự' },
         { status: 400 }
       );
     }
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (existingUser) {
+    if (!username) {
       return NextResponse.json(
-        { error: 'Email này đã được sử dụng' },
+        { error: 'Tên tài khoản là bắt buộc' },
         { status: 400 }
       );
     }
 
-    // Hash password
+    if (!USERNAME_REGEX.test(username)) {
+      return NextResponse.json(
+        { error: 'Tên tài khoản chỉ chứa chữ cái, số và dấu gạch dưới (3-20 ký tự)' },
+        { status: 400 }
+      );
+    }
+
+    const existingUsername = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    if (existingUsername) {
+      return NextResponse.json(
+        { error: 'Tên tài khoản này đã được sử dụng' },
+        { status: 400 }
+      );
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
     const user = await prisma.user.create({
       data: {
-        name: name || email.split('@')[0],
-        email,
+        username,
+        name: username,
         password: hashedPassword,
+        role: 'CONTRIBUTOR',
       },
     });
 
     return NextResponse.json(
       {
         message: 'Tạo tài khoản thành công',
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        },
+        user: { id: user.id, username: user.username },
       },
       { status: 201 }
     );
