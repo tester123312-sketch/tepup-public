@@ -12,6 +12,17 @@ import type {
 } from '@/lib/types/content';
 import { useProgress } from '@/lib/contexts/ProgressContext';
 import TextSelectionPopover from '@/components/ai/TextSelectionPopover';
+import {
+  CalculatorBlockComponent,
+  SliderSimulatorBlockComponent,
+  BudgetAllocatorBlockComponent,
+  BiasDetectorBlockComponent,
+  StatTrickBlockComponent,
+  PerspectiveSwitchBlockComponent,
+  HotColdGuessBlockComponent,
+  RedactedDocumentBlockComponent,
+  HiddenPatternBlockComponent,
+} from '@/components/blocks';
 
 // Content Block Components
 function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; paragraphs: string[] } }) {
@@ -510,6 +521,8 @@ export default function LearnPage() {
     checked: boolean;
     correct: boolean | null
   }>>({});
+  // Track completion of interactive gamification blocks
+  const [interactiveBlockCompleted, setInteractiveBlockCompleted] = useState<Record<number, boolean>>({});
 
   // Fetch lesson or chapter data from API
   useEffect(() => {
@@ -751,11 +764,16 @@ export default function LearnPage() {
   const currentBlock = content.blocks[currentBlockIndex];
   const isCurrentBlockQuestion = currentBlock?.type === 'question';
   const currentQuestionState = questionStates[currentBlockIndex];
-  
+
+  // Check if current block is an interactive gamification block
+  const interactiveBlockTypes = ['calculator', 'slider-simulator', 'budget-allocator', 'bias-detector', 'stat-trick', 'perspective-switch', 'hot-cold-guess', 'redacted-document', 'hidden-pattern'];
+  const isCurrentBlockInteractive = currentBlock && interactiveBlockTypes.includes(currentBlock.type);
+  const isInteractiveCompleted = interactiveBlockCompleted[currentBlockIndex] || false;
+
   // Button state logic
   const hasSelected = currentQuestionState?.selected !== null && currentQuestionState?.selected !== undefined;
   const hasChecked = currentQuestionState?.checked || false;
-  
+
   // Determine what the button should do and display
   let buttonText = 'Tiếp tục';
   let buttonAction: () => void | Promise<void> = handleContinue;
@@ -767,20 +785,21 @@ export default function LearnPage() {
     buttonStyle = 'bg-green-500 text-white hover:bg-green-600';
   } else if (isCurrentBlockQuestion) {
     if (!hasSelected) {
-      // No answer selected yet
       buttonText = 'Chọn đáp án';
       buttonDisabled = true;
       buttonStyle = 'bg-gray-200 text-gray-400 cursor-not-allowed';
     } else if (!hasChecked) {
-      // Answer selected, not checked yet
       buttonText = 'Kiểm tra';
       buttonAction = () => handleCheck(currentBlockIndex);
       buttonStyle = 'bg-blue-500 text-white hover:bg-blue-600';
     } else {
-      // Already checked, can continue
       buttonText = 'Tiếp tục';
       buttonAction = handleContinue;
     }
+  } else if (isCurrentBlockInteractive && !isInteractiveCompleted) {
+    buttonText = 'Hoàn thành bài tập';
+    buttonDisabled = true;
+    buttonStyle = 'bg-gray-200 text-gray-400 cursor-not-allowed';
   }
 
   // Calculate progress
@@ -850,6 +869,33 @@ export default function LearnPage() {
                   isCorrect={questionStates[index]?.correct || null}
                   explanationRef={index === currentBlockIndex ? explanationRef : undefined}
                 />
+              )}
+              {block.type === 'calculator' && (
+                <CalculatorBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'slider-simulator' && (
+                <SliderSimulatorBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'budget-allocator' && (
+                <BudgetAllocatorBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'bias-detector' && (
+                <BiasDetectorBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'stat-trick' && (
+                <StatTrickBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'perspective-switch' && (
+                <PerspectiveSwitchBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'hot-cold-guess' && (
+                <HotColdGuessBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'redacted-document' && (
+                <RedactedDocumentBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'hidden-pattern' && (
+                <HiddenPatternBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
               )}
             </div>
           ))}

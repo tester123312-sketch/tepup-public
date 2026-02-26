@@ -53,7 +53,218 @@ export interface LibraryDocumentBlock {
   };
 }
 
-export type ContentBlock = TextBlock | ImageBlock | CalloutBlock | QuestionBlock | LibraryDocumentBlock;
+// === NHÓM A: Công cụ tính toán ===
+
+export interface CalculatorBlock {
+  type: 'calculator';
+  title?: string;
+  description?: string;
+  calculatorType: 'tax' | 'compound-interest' | 'inflation' | 'custom';
+  inputs: {
+    id: string;
+    label: string;
+    type: 'number' | 'select';
+    unit?: string;
+    defaultValue: number;
+    min?: number;
+    max?: number;
+    step?: number;
+    options?: { value: number; label: string }[];
+  }[];
+  formula: string;
+  outputs: {
+    id: string;
+    label: string;
+    unit?: string;
+    formula: string;
+    highlight?: boolean;
+  }[];
+  presets?: {
+    label: string;
+    values: Record<string, number>;
+  }[];
+  insight?: string;
+}
+
+export interface SliderSimulatorBlock {
+  type: 'slider-simulator';
+  title?: string;
+  description?: string;
+  sliders: {
+    id: string;
+    label: string;
+    min: number;
+    max: number;
+    step: number;
+    defaultValue: number;
+    unit?: string;
+  }[];
+  outputs: {
+    id: string;
+    label: string;
+    formula: string;
+    unit?: string;
+    format?: 'number' | 'percent' | 'currency';
+  }[];
+  chart?: {
+    type: 'bar';
+    bars: {
+      label: string;
+      formula: string;
+      color?: string;
+    }[];
+  };
+  breakpoints?: {
+    condition: string;
+    message: string;
+    variant: 'info' | 'warning' | 'success';
+  }[];
+}
+
+export interface BudgetAllocatorBlock {
+  type: 'budget-allocator';
+  title?: string;
+  description?: string;
+  totalBudget: number;
+  unit?: string;
+  categories: {
+    id: string;
+    label: string;
+    icon?: string;
+    color: string;
+    defaultValue: number;
+    minValue?: number;
+    description?: string;
+  }[];
+  outcomes: {
+    condition: string;
+    title: string;
+    description: string;
+    variant: 'good' | 'neutral' | 'bad';
+  }[];
+  comparison?: {
+    label: string;
+    values: Record<string, number>;
+  };
+}
+
+// === NHÓM B: Tư duy phản biện ===
+
+export interface BiasDetectorBlock {
+  type: 'bias-detector';
+  title?: string;
+  instruction: string;
+  article: {
+    text: string;
+    source?: string;
+  };
+  segments: {
+    id: string;
+    text: string;
+    startIndex: number;
+    biasType: string;
+    explanation: string;
+  }[];
+  biasOptions: { id: string; label: string }[];
+}
+
+export interface StatTrickBlock {
+  type: 'stat-trick';
+  title?: string;
+  instruction: string;
+  chart: {
+    type: 'bar' | 'comparison';
+    data: { label: string; value: number; displayValue?: string }[];
+    yAxisStart?: number;
+    title?: string;
+  };
+  question: string;
+  options: { id: string; text: string; isCorrect: boolean }[];
+  reveal: {
+    explanation: string;
+    correctedChart: {
+      type: 'bar' | 'comparison';
+      data: { label: string; value: number; displayValue?: string }[];
+      yAxisStart?: number;
+      title?: string;
+    };
+  };
+}
+
+export interface PerspectiveSwitchBlock {
+  type: 'perspective-switch';
+  title?: string;
+  event: string;
+  perspectives: {
+    id: string;
+    role: string;
+    icon?: string;
+    narrative: string;
+  }[];
+  question: {
+    text: string;
+    options: { id: string; text: string; isCorrect: boolean }[];
+    explanation: string;
+  };
+}
+
+// === NHÓM C: Mini-game / Puzzle ===
+
+export interface HotColdGuessBlock {
+  type: 'hot-cold-guess';
+  title?: string;
+  question: string;
+  answer: number;
+  unit: string;
+  tolerance: number;
+  hints: string[];
+  context: string;
+}
+
+export interface RedactedDocumentBlock {
+  type: 'redacted-document';
+  title?: string;
+  instruction?: string;
+  documentTitle: string;
+  content: string;
+  redactions: {
+    id: string;
+    answer: string;
+    hint?: string;
+    alternatives?: string[];
+  }[];
+  context: string;
+}
+
+export interface HiddenPatternBlock {
+  type: 'hidden-pattern';
+  title?: string;
+  instruction: string;
+  table: {
+    headers: string[];
+    rows: (string | number)[][];
+  };
+  question: string;
+  options: { id: string; text: string; isCorrect: boolean }[];
+  explanation: string;
+  highlightColumns?: number[];
+}
+
+export type ContentBlock =
+  | TextBlock
+  | ImageBlock
+  | CalloutBlock
+  | QuestionBlock
+  | LibraryDocumentBlock
+  | CalculatorBlock
+  | SliderSimulatorBlock
+  | BudgetAllocatorBlock
+  | BiasDetectorBlock
+  | StatTrickBlock
+  | PerspectiveSwitchBlock
+  | HotColdGuessBlock
+  | RedactedDocumentBlock
+  | HiddenPatternBlock;
 
 // Lesson types for UI consumption
 export interface LessonDisplay {

@@ -1,0 +1,9 @@
+export { default as CalculatorBlockComponent } from './CalculatorBlock';
+export { default as SliderSimulatorBlockComponent } from './SliderSimulatorBlock';
+export { default as BudgetAllocatorBlockComponent } from './BudgetAllocatorBlock';
+export { default as BiasDetectorBlockComponent } from './BiasDetectorBlock';
+export { default as StatTrickBlockComponent } from './StatTrickBlock';
+export { default as PerspectiveSwitchBlockComponent } from './PerspectiveSwitchBlock';
+export { default as HotColdGuessBlockComponent } from './HotColdGuessBlock';
+export { default as RedactedDocumentBlockComponent } from './RedactedDocumentBlock';
+export { default as HiddenPatternBlockComponent } from './HiddenPatternBlock';
