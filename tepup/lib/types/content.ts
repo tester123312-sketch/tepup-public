@@ -250,6 +250,289 @@ export interface HiddenPatternBlock {
   highlightColumns?: number[];
 }
 
+// === NHÓM D: Lập luận & Tranh luận ===
+
+export interface DebateArenaBlock {
+  type: 'debate-arena';
+  title?: string;
+  topic: string;
+  stances: {
+    id: string;
+    label: string;
+    description: string;
+  }[];
+  rounds: {
+    opponentArgument: string;
+    responseOptions: {
+      id: string;
+      text: string;
+      score: number;
+      feedback: string;
+    }[];
+  }[];
+  conclusion: string;
+}
+
+export interface ArgumentMapperBlock {
+  type: 'argument-mapper';
+  title?: string;
+  instruction: string;
+  passage: string;
+  elements: {
+    id: string;
+    text: string;
+    startIndex: number;
+    endIndex: number;
+    correctType: 'premise' | 'conclusion' | 'fallacy' | 'evidence';
+    explanation: string;
+  }[];
+  elementTypes: { id: string; label: string; color: string }[];
+  fallacyName?: string;
+}
+
+export interface FactOrOpinionBlock {
+  type: 'fact-or-opinion';
+  title?: string;
+  instruction?: string;
+  statements: {
+    id: string;
+    text: string;
+    correctAnswer: 'fact' | 'opinion' | 'misleading';
+    explanation: string;
+    source?: string;
+  }[];
+  passingScore?: number;
+}
+
+// === NHÓM E: Mô phỏng & Ra quyết định ===
+
+export interface DecisionTreeBlock {
+  type: 'decision-tree';
+  title?: string;
+  scenario: string;
+  role: string;
+  nodes: {
+    id: string;
+    text: string;
+    choices: {
+      id: string;
+      text: string;
+      nextNodeId: string | null;
+      consequence?: string;
+    }[];
+    isEnding?: boolean;
+    endingType?: 'good' | 'neutral' | 'bad';
+    endingSummary?: string;
+  }[];
+  startNodeId: string;
+}
+
+export interface PrisonerDilemmaBlock {
+  type: 'prisoner-dilemma';
+  title?: string;
+  scenario: string;
+  players: { id: string; name: string; icon?: string }[];
+  rounds: number;
+  payoffMatrix: {
+    bothCooperate: [number, number];
+    bothDefect: [number, number];
+    oneCooperates: [number, number];
+  };
+  opponentStrategy: 'always-cooperate' | 'always-defect' | 'tit-for-tat' | 'random';
+  explanation: string;
+}
+
+export interface PolicyLabBlock {
+  type: 'policy-lab';
+  title?: string;
+  description?: string;
+  context: string;
+  policies: {
+    id: string;
+    label: string;
+    icon?: string;
+    min: number;
+    max: number;
+    step: number;
+    defaultValue: number;
+    unit?: string;
+  }[];
+  indicators: {
+    id: string;
+    label: string;
+    icon?: string;
+    formula: string;
+    format?: 'number' | 'percent';
+    goodRange?: [number, number];
+  }[];
+  populations: {
+    id: string;
+    label: string;
+    impactFormula: string;
+    description: string;
+  }[];
+  insight?: string;
+}
+
+// === NHÓM F: Media Literacy ===
+
+export interface SourceRankerBlock {
+  type: 'source-ranker';
+  title?: string;
+  event: string;
+  sources: {
+    id: string;
+    name: string;
+    excerpt: string;
+    credibilityScore: number;
+    explanation: string;
+    redFlags?: string[];
+    greenFlags?: string[];
+  }[];
+  instruction?: string;
+}
+
+export interface PropagandaDetectorBlock {
+  type: 'propaganda-detector';
+  title?: string;
+  instruction: string;
+  article: {
+    text: string;
+    source?: string;
+    context?: string;
+  };
+  segments: {
+    id: string;
+    text: string;
+    startIndex: number;
+    techniqueType: string;
+    explanation: string;
+  }[];
+  techniqueOptions: { id: string; label: string; description: string }[];
+}
+
+export interface CorrelationCausationBlock {
+  type: 'correlation-causation';
+  title?: string;
+  instruction?: string;
+  pairs: {
+    id: string;
+    factA: { label: string; data: number[] };
+    factB: { label: string; data: number[] };
+    labels: string[];
+    correctAnswer: 'causation' | 'correlation' | 'coincidence';
+    explanation: string;
+    confoundingFactor?: string;
+  }[];
+}
+
+// === NHÓM G: Timeline & Bối cảnh ===
+
+export interface TimelineSorterBlock {
+  type: 'timeline-sorter';
+  title?: string;
+  instruction?: string;
+  events: {
+    id: string;
+    title: string;
+    date: string;
+    description?: string;
+    year: number;
+  }[];
+  connections?: {
+    fromId: string;
+    toId: string;
+    description: string;
+  }[];
+}
+
+export interface CauseEffectChainBlock {
+  type: 'cause-effect-chain';
+  title?: string;
+  instruction?: string;
+  nodes: {
+    id: string;
+    text: string;
+    category?: string;
+  }[];
+  correctConnections: {
+    fromId: string;
+    toId: string;
+  }[];
+  explanation: string;
+}
+
+export interface SpectrumPlacerBlock {
+  type: 'spectrum-placer';
+  title?: string;
+  instruction?: string;
+  spectrum: {
+    leftLabel: string;
+    rightLabel: string;
+    leftDescription?: string;
+    rightDescription?: string;
+  };
+  items: {
+    id: string;
+    label: string;
+    description?: string;
+    correctPosition: number;
+    tolerance: number;
+    explanation: string;
+  }[];
+}
+
+// === NHÓM H: AI-Powered (Static version) ===
+
+export interface SocraticDialogBlock {
+  type: 'socratic-dialog';
+  title?: string;
+  concept: string;
+  introduction: string;
+  steps: {
+    question: string;
+    options: {
+      id: string;
+      text: string;
+      followUp: string;
+      isDeepening: boolean;
+    }[];
+  }[];
+  revelation: string;
+}
+
+export interface AiEssayReviewBlock {
+  type: 'ai-essay-review';
+  title?: string;
+  prompt: string;
+  minWords?: number;
+  maxWords?: number;
+  rubric: {
+    id: string;
+    label: string;
+    description: string;
+    keywords: string[];
+    maxScore: number;
+  }[];
+  sampleResponse?: string;
+  tips: string[];
+}
+
+export interface ScenarioWhatIfBlock {
+  type: 'scenario-what-if';
+  title?: string;
+  scenario: string;
+  historicalContext: string;
+  predictions: {
+    id: string;
+    text: string;
+    likelihood: 'likely' | 'possible' | 'unlikely';
+    explanation: string;
+  }[];
+  realOutcome: string;
+  analysis: string;
+}
+
 export type ContentBlock =
   | TextBlock
   | ImageBlock
@@ -264,7 +547,22 @@ export type ContentBlock =
   | PerspectiveSwitchBlock
   | HotColdGuessBlock
   | RedactedDocumentBlock
-  | HiddenPatternBlock;
+  | HiddenPatternBlock
+  | DebateArenaBlock
+  | ArgumentMapperBlock
+  | FactOrOpinionBlock
+  | DecisionTreeBlock
+  | PrisonerDilemmaBlock
+  | PolicyLabBlock
+  | SourceRankerBlock
+  | PropagandaDetectorBlock
+  | CorrelationCausationBlock
+  | TimelineSorterBlock
+  | CauseEffectChainBlock
+  | SpectrumPlacerBlock
+  | SocraticDialogBlock
+  | AiEssayReviewBlock
+  | ScenarioWhatIfBlock;
 
 // Lesson types for UI consumption
 export interface LessonDisplay {

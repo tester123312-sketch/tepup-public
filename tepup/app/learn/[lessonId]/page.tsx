@@ -22,6 +22,21 @@ import {
   HotColdGuessBlockComponent,
   RedactedDocumentBlockComponent,
   HiddenPatternBlockComponent,
+  DebateArenaBlockComponent,
+  ArgumentMapperBlockComponent,
+  FactOrOpinionBlockComponent,
+  DecisionTreeBlockComponent,
+  PrisonerDilemmaBlockComponent,
+  PolicyLabBlockComponent,
+  SourceRankerBlockComponent,
+  PropagandaDetectorBlockComponent,
+  CorrelationCausationBlockComponent,
+  TimelineSorterBlockComponent,
+  CauseEffectChainBlockComponent,
+  SpectrumPlacerBlockComponent,
+  SocraticDialogBlockComponent,
+  AiEssayReviewBlockComponent,
+  ScenarioWhatIfBlockComponent,
 } from '@/components/blocks';
 
 // Content Block Components
@@ -766,7 +781,7 @@ export default function LearnPage() {
   const currentQuestionState = questionStates[currentBlockIndex];
 
   // Check if current block is an interactive gamification block
-  const interactiveBlockTypes = ['calculator', 'slider-simulator', 'budget-allocator', 'bias-detector', 'stat-trick', 'perspective-switch', 'hot-cold-guess', 'redacted-document', 'hidden-pattern'];
+  const interactiveBlockTypes = ['calculator', 'slider-simulator', 'budget-allocator', 'bias-detector', 'stat-trick', 'perspective-switch', 'hot-cold-guess', 'redacted-document', 'hidden-pattern', 'debate-arena', 'argument-mapper', 'fact-or-opinion', 'decision-tree', 'prisoner-dilemma', 'policy-lab', 'source-ranker', 'propaganda-detector', 'correlation-causation', 'timeline-sorter', 'cause-effect-chain', 'spectrum-placer', 'socratic-dialog', 'ai-essay-review', 'scenario-what-if'];
   const isCurrentBlockInteractive = currentBlock && interactiveBlockTypes.includes(currentBlock.type);
   const isInteractiveCompleted = interactiveBlockCompleted[currentBlockIndex] || false;
 
@@ -896,6 +911,51 @@ export default function LearnPage() {
               )}
               {block.type === 'hidden-pattern' && (
                 <HiddenPatternBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'debate-arena' && (
+                <DebateArenaBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'argument-mapper' && (
+                <ArgumentMapperBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'fact-or-opinion' && (
+                <FactOrOpinionBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'decision-tree' && (
+                <DecisionTreeBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'prisoner-dilemma' && (
+                <PrisonerDilemmaBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'policy-lab' && (
+                <PolicyLabBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'source-ranker' && (
+                <SourceRankerBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'propaganda-detector' && (
+                <PropagandaDetectorBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'correlation-causation' && (
+                <CorrelationCausationBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'timeline-sorter' && (
+                <TimelineSorterBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'cause-effect-chain' && (
+                <CauseEffectChainBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'spectrum-placer' && (
+                <SpectrumPlacerBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'socratic-dialog' && (
+                <SocraticDialogBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'ai-essay-review' && (
+                <AiEssayReviewBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
+              )}
+              {block.type === 'scenario-what-if' && (
+                <ScenarioWhatIfBlockComponent block={block} onComplete={() => setInteractiveBlockCompleted(prev => ({ ...prev, [index]: true }))} />
               )}
             </div>
           ))}
