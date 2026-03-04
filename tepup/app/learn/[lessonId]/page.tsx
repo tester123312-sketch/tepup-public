@@ -199,20 +199,6 @@ function QuestionBlockComponent({
   );
 }
 
-// Wikimedia Commons SVG files often break in <img> tags (scripts, external refs blocked).
-// Convert SVG → PNG using Wikimedia's thumbnail API. JPG/PNG load fine directly.
-// Pattern: /commons/H1/H2/file.svg → /commons/thumb/H1/H2/file.svg/800px-file.svg.png
-function toWikimediaThumbnailUrl(src: string, width = 800): string {
-  const match = src.match(
-    /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/([^/]+)\/([^/]+)\/(.+)$/
-  );
-  if (!match) return src;
-  const [, h1, h2, filename] = match;
-  // Only SVG needs thumbnail conversion; JPG/PNG serve fine from the original URL
-  if (!filename.toLowerCase().endsWith('.svg')) return src;
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${h1}/${h2}/${filename}/${width}px-${filename}.png`;
-}
-
 function ImageBlockComponent({
   block,
   onLoad,
@@ -220,11 +206,10 @@ function ImageBlockComponent({
   block: { type: 'image'; src: string; alt: string; caption?: string };
   onLoad?: () => void;
 }) {
-  const src = toWikimediaThumbnailUrl(block.src);
   return (
     <figure className="mb-6">
       <img
-        src={src}
+        src={block.src}
         alt={block.alt}
         className="rounded-xl w-full"
         onLoad={onLoad}
