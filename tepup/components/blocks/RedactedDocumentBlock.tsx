@@ -131,11 +131,11 @@ export default function RedactedDocumentBlockComponent({ block, onComplete }: Pr
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <FileText className="w-6 h-6 text-amber-700" />
+          <FileText className="w-6 h-6 text-amber-700" aria-hidden="true" />
           <h3 className="text-lg font-bold text-gray-900">{block.title || 'Tài liệu giải mật'}</h3>
         </div>
         <div className="flex items-center gap-1 text-sm text-gray-500">
-          <Unlock className="w-4 h-4" />
+          <Unlock className="w-4 h-4" aria-hidden="true" />
           <span>{revealedIds.size}/{block.redactions.length}</span>
         </div>
       </div>
@@ -165,6 +165,7 @@ export default function RedactedDocumentBlockComponent({ block, onComplete }: Pr
               onChange={e => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Nhập từ bị che..."
+              aria-label="Nhập từ bị che để đoán"
               autoFocus
               className={`
                 flex-1 p-2.5 border-2 rounded-lg focus:outline-none
@@ -188,7 +189,7 @@ export default function RedactedDocumentBlockComponent({ block, onComplete }: Pr
             <div className="mt-2">
               {showHint ? (
                 <div className="flex items-start gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
-                  <Lightbulb className="w-4 h-4 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <Lightbulb className="w-4 h-4 text-yellow-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
                   <p className="text-yellow-800 text-sm">{activeRedactionData.hint}</p>
                 </div>
               ) : (
@@ -196,7 +197,7 @@ export default function RedactedDocumentBlockComponent({ block, onComplete }: Pr
                   onClick={() => setShowHint(true)}
                   className="text-sm text-amber-600 hover:text-amber-800 font-medium flex items-center gap-1"
                 >
-                  <Lightbulb className="w-3.5 h-3.5" />
+                  <Lightbulb className="w-3.5 h-3.5" aria-hidden="true" />
                   Xem gợi ý
                 </button>
               )}
@@ -215,9 +216,9 @@ export default function RedactedDocumentBlockComponent({ block, onComplete }: Pr
 
       {/* Completion context */}
       {allRevealed && (
-        <div className="mt-4 p-5 bg-green-50 border-2 border-green-200 rounded-2xl">
+        <div className="mt-4 p-5 bg-green-50 border-2 border-green-200 rounded-2xl" aria-live="polite">
           <div className="flex items-center gap-2 mb-2">
-            <Lock className="w-5 h-5 text-green-600" />
+            <Lock className="w-5 h-5 text-green-600" aria-hidden="true" />
             <h4 className="font-bold text-green-800">Tài liệu đã được giải mật hoàn toàn!</h4>
           </div>
           <p className="text-green-700 leading-relaxed">{block.context}</p>

@@ -78,6 +78,7 @@ export default function AiEssayReviewBlockComponent({ block, onComplete }: Props
               value={essay}
               onChange={(e) => setEssay(e.target.value)}
               placeholder="Viết bài phân tích của bạn ở đây..."
+              aria-label="Viết bài phân tích của bạn"
               className="w-full h-48 p-4 rounded-xl border-2 border-gray-200 focus:border-emerald-400 focus:ring-0 outline-none resize-none text-sm text-gray-800 leading-relaxed"
             />
             <div className="flex items-center justify-between mt-2 mb-4">
@@ -125,7 +126,7 @@ export default function AiEssayReviewBlockComponent({ block, onComplete }: Props
             </button>
           </>
         ) : (
-          <>
+          <div aria-live="polite">
             {/* Submitted essay */}
             <div className="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-200">
               <p className="text-xs text-gray-400 mb-1">Bài viết của bạn ({wordCount} từ)</p>
@@ -197,7 +198,7 @@ export default function AiEssayReviewBlockComponent({ block, onComplete }: Props
                 )}
               </>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

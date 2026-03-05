@@ -159,7 +159,7 @@ export default function TimelineSorterBlockComponent({ block, onComplete }: Prop
 
         {/* Results & Connections */}
         {hasSubmitted && (
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 space-y-3" aria-live="polite">
             <div className={`p-4 rounded-xl text-center ${correctCount === block.events.length ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
               <p className={`font-semibold ${correctCount === block.events.length ? 'text-green-700' : 'text-blue-700'}`}>
                 {correctCount}/{block.events.length} đúng vị trí

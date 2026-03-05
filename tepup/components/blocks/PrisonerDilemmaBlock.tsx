@@ -182,7 +182,7 @@ export default function PrisonerDilemmaBlockComponent({ block, onComplete }: Pro
 
         {/* Results */}
         {isFinished && (
-          <div>
+          <div aria-live="polite">
             <div className={`p-4 rounded-xl text-center mb-4 ${
               totalPlayerScore > totalOpponentScore ? 'bg-green-50 border border-green-200' :
               totalPlayerScore === totalOpponentScore ? 'bg-yellow-50 border border-yellow-200' :

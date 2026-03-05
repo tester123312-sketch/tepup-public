@@ -25,6 +25,23 @@ export default function SpectrumPlacerBlockComponent({ block, onComplete }: Prop
     setActiveItem(null);
   }, [activeItem, hasSubmitted]);
 
+  const handleSpectrumKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!activeItem || hasSubmitted) return;
+    const currentPos = placements[activeItem] ?? 50;
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const newPos = Math.max(0, currentPos - 5);
+      setPlacements(prev => ({ ...prev, [activeItem]: newPos }));
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const newPos = Math.min(100, currentPos + 5);
+      setPlacements(prev => ({ ...prev, [activeItem]: newPos }));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      setActiveItem(null);
+    }
+  }, [activeItem, hasSubmitted, placements]);
+
   const handleSubmit = () => {
     setHasSubmitted(true);
     onComplete?.();
@@ -102,6 +119,13 @@ export default function SpectrumPlacerBlockComponent({ block, onComplete }: Prop
           <div
             ref={spectrumRef}
             onClick={handleSpectrumClick}
+            onKeyDown={handleSpectrumKeyDown}
+            tabIndex={0}
+            role="slider"
+            aria-label={`Thanh quang phổ từ ${block.spectrum.leftLabel} đến ${block.spectrum.rightLabel}`}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={activeItem ? (placements[activeItem] ?? 50) : undefined}
             className={`relative h-12 rounded-full overflow-hidden ${
               activeItem && !hasSubmitted ? 'cursor-crosshair' : ''
             }`}
@@ -173,7 +197,7 @@ export default function SpectrumPlacerBlockComponent({ block, onComplete }: Prop
 
         {/* Results */}
         {hasSubmitted && (
-          <div className="space-y-3">
+          <div className="space-y-3" aria-live="polite">
             <div className={`p-4 rounded-xl text-center ${totalCorrect === block.items.length ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
               <p className={`font-semibold ${totalCorrect === block.items.length ? 'text-green-700' : 'text-blue-700'}`}>
                 {totalCorrect}/{block.items.length} đúng vị trí

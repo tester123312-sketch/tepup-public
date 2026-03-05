@@ -73,7 +73,7 @@ export default function CorrelationCausationBlockComponent({ block, onComplete }
         <div className="bg-gradient-to-r from-amber-500 to-orange-500 p-4">
           <h3 className="text-white font-bold text-lg">{block.title || 'Tương quan hay Nhân quả?'}</h3>
         </div>
-        <div className="p-6 text-center">
+        <div className="p-6 text-center" aria-live="polite">
           <div className="text-5xl mb-4">{correctCount === totalPairs ? '🧠' : '📊'}</div>
           <p className="text-2xl font-bold text-gray-900 mb-2">{correctCount}/{totalPairs} câu đúng</p>
           <p className="text-gray-500">
@@ -124,7 +124,7 @@ export default function CorrelationCausationBlockComponent({ block, onComplete }
             ))}
           </div>
         ) : (
-          <div>
+          <div aria-live="polite">
             <div className={`p-4 rounded-xl mb-4 ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">{isCorrect ? '✅' : '❌'}</span>

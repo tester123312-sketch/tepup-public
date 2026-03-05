@@ -69,7 +69,7 @@ export default function StatTrickBlockComponent({ block, onComplete }: Props) {
     <div className="mb-6 bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-rose-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
-        <BarChart3 className="w-6 h-6 text-rose-600" />
+        <BarChart3 className="w-6 h-6 text-rose-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Mẹo thống kê'}</h3>
       </div>
 
@@ -132,8 +132,8 @@ export default function StatTrickBlockComponent({ block, onComplete }: Props) {
                       : isSelected ? 'border-rose-500 bg-rose-500'
                       : 'border-gray-300'}
                   `}>
-                    {showCorrect && <Check className="w-3 h-3 text-white" />}
-                    {showWrong && <X className="w-3 h-3 text-white" />}
+                    {showCorrect && <Check className="w-3 h-3 text-white" aria-hidden="true" />}
+                    {showWrong && <X className="w-3 h-3 text-white" aria-hidden="true" />}
                     {isSelected && !checked && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                   </div>
                   <span className={`${showCorrect ? 'text-green-700 font-medium' : showWrong ? 'text-red-700' : isSelected ? 'text-rose-700 font-medium' : 'text-gray-700'}`}>
@@ -156,7 +156,7 @@ export default function StatTrickBlockComponent({ block, onComplete }: Props) {
 
         {/* Explanation + toggle corrected chart */}
         {checked && (
-          <>
+          <div aria-live="polite">
             <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
               <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} leading-relaxed`}>
                 <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
@@ -169,11 +169,11 @@ export default function StatTrickBlockComponent({ block, onComplete }: Props) {
                 onClick={() => setShowCorrected(true)}
                 className="mt-3 flex items-center gap-2 text-sm text-rose-600 hover:text-rose-800 font-medium"
               >
-                <Eye className="w-4 h-4" />
+                <Eye className="w-4 h-4" aria-hidden="true" />
                 Xem biểu đồ so sánh
               </button>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

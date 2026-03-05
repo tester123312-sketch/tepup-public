@@ -72,6 +72,9 @@ export default function AIChatBox() {
             bg-white rounded-2xl shadow-2xl border border-gray-200
             animate-slide-up
           "
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Chat với ${currentPersona.name}`}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 flex-shrink-0">
@@ -86,27 +89,31 @@ export default function AIChatBox() {
               <button
                 onClick={() => clearMessages()}
                 title="Xóa lịch sử chat"
+                aria-label="Xóa lịch sử chat"
                 className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <Trash2 className="w-4 h-4 text-gray-500" />
+                <Trash2 className="w-4 h-4 text-gray-500" aria-hidden="true" />
               </button>
               <button
                 onClick={toggleSettings}
                 title="Cài đặt"
+                aria-label="Cài đặt"
+                aria-expanded={isSettingsOpen}
                 className={`p-1.5 rounded-lg transition-colors ${
                   isSettingsOpen
                     ? 'bg-blue-100 text-blue-600'
                     : 'hover:bg-gray-100 text-gray-500'
                 }`}
               >
-                <Settings className="w-4 h-4" />
+                <Settings className="w-4 h-4" aria-hidden="true" />
               </button>
               <button
                 onClick={closeChat}
                 title="Đóng"
+                aria-label="Đóng chat"
                 className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <X className="w-4 h-4 text-gray-500" />
+                <X className="w-4 h-4 text-gray-500" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -117,7 +124,7 @@ export default function AIChatBox() {
           ) : (
             <>
               {/* Messages area */}
-              <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+              <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3" aria-live="polite" aria-relevant="additions">
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-4">
                     <span className="text-5xl mb-3 leading-none">{currentPersona.emoji}</span>
@@ -149,8 +156,9 @@ export default function AIChatBox() {
                     <button
                       onClick={clearPendingSelection}
                       className="flex-shrink-0 text-blue-300 hover:text-blue-500 transition-colors mt-0.5"
+                      aria-label="Xóa đoạn được chọn"
                     >
-                      <X className="w-3.5 h-3.5" />
+                      <X className="w-3.5 h-3.5" aria-hidden="true" />
                     </button>
                   </div>
                 )}
@@ -161,6 +169,7 @@ export default function AIChatBox() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={handleKeyDown}
+                    aria-label="Nhập câu hỏi cho AI"
                     placeholder={
                       pendingSelection
                         ? 'Nhập câu hỏi của bạn về đoạn văn trên...'
@@ -178,6 +187,7 @@ export default function AIChatBox() {
                   <button
                     onClick={handleSend}
                     disabled={!canSend}
+                    aria-label="Gửi tin nhắn"
                     className="
                       p-2.5 bg-blue-500 hover:bg-blue-600 text-white
                       rounded-xl transition-colors flex-shrink-0
@@ -186,9 +196,9 @@ export default function AIChatBox() {
                     "
                   >
                     {isStreaming ? (
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
                     ) : (
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4" aria-hidden="true" />
                     )}
                   </button>
                 </div>
@@ -207,11 +217,13 @@ export default function AIChatBox() {
           transition-all active:scale-95
         "
         title={isOpen ? 'Đóng chat' : 'Mở chat AI'}
+        aria-label={isOpen ? 'Đóng chat' : 'Mở chat AI'}
+        aria-expanded={isOpen}
       >
         {isOpen ? (
-          <X className="w-6 h-6" />
+          <X className="w-6 h-6" aria-hidden="true" />
         ) : (
-          <MessageSquare className="w-6 h-6" />
+          <MessageSquare className="w-6 h-6" aria-hidden="true" />
         )}
       </button>
     </div>

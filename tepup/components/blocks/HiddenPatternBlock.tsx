@@ -52,7 +52,7 @@ export default function HiddenPatternBlockComponent({ block, onComplete }: Props
     <div className="mb-6 bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <Search className="w-6 h-6 text-emerald-600" />
+        <Search className="w-6 h-6 text-emerald-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Tìm pattern ẩn'}</h3>
       </div>
 
@@ -82,7 +82,7 @@ export default function HiddenPatternBlockComponent({ block, onComplete }: Props
                   >
                     <div className="flex items-center gap-1">
                       {header}
-                      <ArrowUpDown className={`w-3.5 h-3.5 ${sortColumn === i ? 'text-emerald-600' : 'text-gray-300'}`} />
+                      <ArrowUpDown className={`w-3.5 h-3.5 ${sortColumn === i ? 'text-emerald-600' : 'text-gray-300'}`} aria-hidden="true" />
                     </div>
                   </th>
                 );
@@ -154,8 +154,8 @@ export default function HiddenPatternBlockComponent({ block, onComplete }: Props
                       : isSelected ? 'border-emerald-500 bg-emerald-500'
                       : 'border-gray-300'}
                   `}>
-                    {showCorrect && <Check className="w-3 h-3 text-white" />}
-                    {showWrong && <X className="w-3 h-3 text-white" />}
+                    {showCorrect && <Check className="w-3 h-3 text-white" aria-hidden="true" />}
+                    {showWrong && <X className="w-3 h-3 text-white" aria-hidden="true" />}
                     {isSelected && !checked && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                   </div>
                   <span className={`${showCorrect ? 'text-green-700 font-medium' : showWrong ? 'text-red-700' : isSelected ? 'text-emerald-700 font-medium' : 'text-gray-700'}`}>
@@ -179,7 +179,7 @@ export default function HiddenPatternBlockComponent({ block, onComplete }: Props
 
         {/* Explanation */}
         {checked && (
-          <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
+          <div aria-live="polite" className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
             <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} leading-relaxed`}>
               <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
               {block.explanation}

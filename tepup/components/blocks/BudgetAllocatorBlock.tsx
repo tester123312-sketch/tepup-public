@@ -89,7 +89,7 @@ export default function BudgetAllocatorBlockComponent({ block, onComplete }: Pro
     <div className="mb-6 bg-gradient-to-br from-lime-50 to-green-50 border-2 border-lime-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
-        <PieChart className="w-6 h-6 text-lime-600" />
+        <PieChart className="w-6 h-6 text-lime-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Phân bổ ngân sách'}</h3>
       </div>
 
@@ -141,9 +141,10 @@ export default function BudgetAllocatorBlockComponent({ block, onComplete }: Pro
                 <button
                   onClick={() => handleChange(cat.id, -step)}
                   disabled={submitted || allocations[cat.id] <= (cat.minValue || 0)}
+                  aria-label={`Giảm ${cat.label}`}
                   className="p-1.5 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 >
-                  <Minus className="w-4 h-4 text-gray-600" />
+                  <Minus className="w-4 h-4 text-gray-600" aria-hidden="true" />
                 </button>
 
                 <div className="flex-1 h-3 bg-white rounded-full overflow-hidden">
@@ -156,9 +157,10 @@ export default function BudgetAllocatorBlockComponent({ block, onComplete }: Pro
                 <button
                   onClick={() => handleChange(cat.id, step)}
                   disabled={submitted}
+                  aria-label={`Tăng ${cat.label}`}
                   className="p-1.5 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 >
-                  <Plus className="w-4 h-4 text-gray-600" />
+                  <Plus className="w-4 h-4 text-gray-600" aria-hidden="true" />
                 </button>
 
                 <span className="text-sm tabular-nums font-bold text-gray-700 min-w-[80px] text-right">
@@ -187,13 +189,13 @@ export default function BudgetAllocatorBlockComponent({ block, onComplete }: Pro
             }
           `}
         >
-          {isOverBudget ? 'Vượt ngân sách!' : <>Xem kết quả <ArrowRight className="w-4 h-4" /></>}
+          {isOverBudget ? 'Vượt ngân sách!' : <>Xem kết quả <ArrowRight className="w-4 h-4" aria-hidden="true" /></>}
         </button>
       )}
 
       {/* Outcomes */}
       {submitted && (
-        <div className="space-y-3">
+        <div className="space-y-3" aria-live="polite">
           <h4 className="font-semibold text-gray-800">Kết quả phân bổ:</h4>
 
           {activeOutcomes.map((outcome, i) => {
@@ -218,7 +220,7 @@ export default function BudgetAllocatorBlockComponent({ block, onComplete }: Pro
           {block.comparison && (
             <div className="p-4 bg-white/80 rounded-xl border border-lime-200">
               <div className="flex items-center gap-2 mb-3">
-                <BarChart3 className="w-5 h-5 text-lime-600" />
+                <BarChart3 className="w-5 h-5 text-lime-600" aria-hidden="true" />
                 <h5 className="font-semibold text-gray-800">So sánh: {block.comparison.label}</h5>
               </div>
               <div className="space-y-2">

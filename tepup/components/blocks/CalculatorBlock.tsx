@@ -61,7 +61,7 @@ export default function CalculatorBlockComponent({ block, onComplete }: Props) {
     <div className="mb-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-2 border-cyan-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
-        <Calculator className="w-6 h-6 text-cyan-600" />
+        <Calculator className="w-6 h-6 text-cyan-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Máy tính'}</h3>
       </div>
 
@@ -79,7 +79,7 @@ export default function CalculatorBlockComponent({ block, onComplete }: Props) {
               onClick={() => handlePreset(preset.values)}
               className="px-3 py-1.5 bg-white border border-cyan-200 text-cyan-700 rounded-lg text-sm font-medium hover:bg-cyan-50 transition-colors"
             >
-              <Zap className="w-3 h-3 inline mr-1" />
+              <Zap className="w-3 h-3 inline mr-1" aria-hidden="true" />
               {preset.label}
             </button>
           ))}
@@ -144,9 +144,9 @@ export default function CalculatorBlockComponent({ block, onComplete }: Props) {
 
       {/* Insight */}
       {block.insight && hasInteracted && (
-        <div className="mt-4 p-4 bg-cyan-50 border border-cyan-200 rounded-xl">
+        <div className="mt-4 p-4 bg-cyan-50 border border-cyan-200 rounded-xl" aria-live="polite">
           <div className="flex items-start gap-2">
-            <Lightbulb className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" />
+            <Lightbulb className="w-5 h-5 text-cyan-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
             <p className="text-cyan-800 text-sm leading-relaxed">{block.insight}</p>
           </div>
         </div>

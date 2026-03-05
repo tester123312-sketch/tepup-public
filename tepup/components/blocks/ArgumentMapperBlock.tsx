@@ -95,7 +95,7 @@ export default function ArgumentMapperBlockComponent({ block, onComplete }: Prop
               className="inline-flex items-center gap-0.5 ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide text-white"
               style={{ backgroundColor: isChecked ? (isCorrect ? '#16a34a' : '#dc2626') : typeConfig?.color }}
             >
-              {isChecked && (isCorrect ? <Check className="w-2.5 h-2.5" /> : <X className="w-2.5 h-2.5" />)}
+              {isChecked && (isCorrect ? <Check className="w-2.5 h-2.5" aria-hidden="true" /> : <X className="w-2.5 h-2.5" aria-hidden="true" />)}
               {block.elementTypes.find(t => t.id === state.selectedType)?.label}
             </span>
           )}
@@ -136,7 +136,7 @@ export default function ArgumentMapperBlockComponent({ block, onComplete }: Prop
   return (
     <div className="mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-3">
-        <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Phân tích Lập luận'}</h3>
@@ -168,7 +168,7 @@ export default function ArgumentMapperBlockComponent({ block, onComplete }: Prop
             Click vào phần highlight
           </span>
           <span className="flex items-center gap-1">
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className="w-3 h-3" aria-hidden="true" />
             Phân loại
           </span>
         </div>
@@ -190,7 +190,7 @@ export default function ArgumentMapperBlockComponent({ block, onComplete }: Prop
       )}
 
       {allChecked && (
-        <div className="space-y-3">
+        <div className="space-y-3" aria-live="polite">
           <div className={`p-4 rounded-xl ${correctCount === block.elements.length ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
             <p className={`font-semibold ${correctCount === block.elements.length ? 'text-green-700' : 'text-blue-700'}`}>
               Kết quả: {correctCount}/{block.elements.length} đúng

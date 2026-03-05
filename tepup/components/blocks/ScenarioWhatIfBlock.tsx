@@ -96,7 +96,7 @@ export default function ScenarioWhatIfBlockComponent({ block, onComplete }: Prop
             </button>
           </>
         ) : (
-          <>
+          <div aria-live="polite">
             {/* Predictions with likelihood */}
             <p className="text-sm font-semibold text-gray-700 mb-3">Đánh giá các dự đoán:</p>
             <div className="space-y-2 mb-5">
@@ -140,7 +140,7 @@ export default function ScenarioWhatIfBlockComponent({ block, onComplete }: Prop
                 <p className="text-gray-700 text-sm leading-relaxed">{block.analysis}</p>
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

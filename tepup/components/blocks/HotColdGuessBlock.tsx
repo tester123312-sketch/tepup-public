@@ -62,7 +62,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
     <div className="mb-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-2 border-indigo-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <Target className="w-6 h-6 text-indigo-600" />
+        <Target className="w-6 h-6 text-indigo-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Đoán số liệu'}</h3>
       </div>
 
@@ -100,6 +100,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
               onChange={e => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={`Nhập số (${block.unit})`}
+              aria-label="Nhập số liệu dự đoán"
               className="w-full p-3 pr-16 border-2 border-gray-200 rounded-xl focus:border-indigo-400 focus:outline-none text-lg tabular-nums"
             />
             {block.unit && (
@@ -121,7 +122,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
         <div className="mb-3">
           {showHint ? (
             <div className="flex items-start gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-xl">
-              <Lightbulb className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+              <Lightbulb className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-yellow-800 text-sm">{block.hints[currentHintIndex]}</p>
             </div>
           ) : (
@@ -129,7 +130,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
               onClick={() => setShowHint(true)}
               className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1"
             >
-              <Lightbulb className="w-4 h-4" />
+              <Lightbulb className="w-4 h-4" aria-hidden="true" />
               Xem gợi ý ({currentHintIndex + 1}/{block.hints.length})
             </button>
           )}
@@ -143,7 +144,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
 
       {/* Success state */}
       {solved && (
-        <div className="mt-4 p-5 bg-green-50 border-2 border-green-200 rounded-2xl">
+        <div className="mt-4 p-5 bg-green-50 border-2 border-green-200 rounded-2xl" aria-live="polite">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-2xl">🎉</span>
             <h4 className="text-lg font-bold text-green-800">Chính xác!</h4>
@@ -154,7 +155,7 @@ export default function HotColdGuessBlockComponent({ block, onComplete }: Props)
           </p>
           <div className="mt-3 p-3 bg-white/60 rounded-xl">
             <div className="flex items-start gap-2">
-              <Thermometer className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+              <Thermometer className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-gray-700 leading-relaxed">{block.context}</p>
             </div>
           </div>

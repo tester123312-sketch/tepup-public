@@ -48,7 +48,7 @@ export default function FactOrOpinionBlockComponent({ block, onComplete }: Props
 
   if (isFinished) {
     return (
-      <div className="my-6 bg-white rounded-2xl border border-gray-200 overflow-hidden">
+      <div className="my-6 bg-white rounded-2xl border border-gray-200 overflow-hidden" aria-live="polite">
         <div className="bg-gradient-to-r from-purple-500 to-indigo-500 p-4">
           <h3 className="text-white font-bold text-lg">{block.title || 'Sự thật hay Ý kiến?'}</h3>
         </div>
@@ -143,7 +143,7 @@ export default function FactOrOpinionBlockComponent({ block, onComplete }: Props
         ) : (
           <div>
             {/* Result feedback */}
-            <div className={`p-4 rounded-xl mb-4 ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+            <div aria-live="polite" className={`p-4 rounded-xl mb-4 ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">{isCorrect ? '✅' : '❌'}</span>
                 <span className={`font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>

@@ -94,7 +94,7 @@ export default function SliderSimulatorBlockComponent({ block, onComplete }: Pro
     <div className="mb-6 bg-gradient-to-br from-sky-50 to-indigo-50 border-2 border-sky-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
-        <SlidersHorizontal className="w-6 h-6 text-sky-600" />
+        <SlidersHorizontal className="w-6 h-6 text-sky-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Mô phỏng'}</h3>
       </div>
 
@@ -119,6 +119,7 @@ export default function SliderSimulatorBlockComponent({ block, onComplete }: Pro
               step={slider.step}
               value={values[slider.id]}
               onChange={e => handleSliderChange(slider.id, parseFloat(e.target.value))}
+              aria-label={slider.label}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-sky-600"
             />
             <div className="flex justify-between text-[10px] text-gray-400 mt-0.5">
@@ -171,18 +172,20 @@ export default function SliderSimulatorBlockComponent({ block, onComplete }: Pro
       )}
 
       {/* Breakpoint callouts */}
+      <div aria-live="polite">
       {activeBreakpoints.map((bp, i) => {
         const colors = breakpointColors[bp.variant] || breakpointColors.info;
         const Icon = breakpointIcons[bp.variant] || Lightbulb;
         return (
           <div key={i} className={`p-3 rounded-xl border ${colors.bg} ${colors.border} mb-2 animate-fade-in`}>
             <div className="flex items-start gap-2">
-              <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${colors.text}`} />
+              <Icon className={`w-5 h-5 flex-shrink-0 mt-0.5 ${colors.text}`} aria-hidden="true" />
               <p className={`text-sm leading-relaxed ${colors.text}`}>{bp.message}</p>
             </div>
           </div>
         );
       })}
+      </div>
     </div>
   );
 }

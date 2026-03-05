@@ -94,10 +94,10 @@ function CalloutBlockComponent({ block }: { block: { type: 'callout'; icon?: str
   const IconComponent = iconMap[block.icon || 'lightbulb'] || Lightbulb;
 
   return (
-    <div className={`${variant.bg} ${variant.border} border-2 rounded-2xl p-5 mb-6`}>
+    <div className={`${variant.bg} ${variant.border} border-2 rounded-2xl p-5 mb-6`} role={block.variant === 'warning' ? 'alert' : 'note'}>
       <div className="flex items-start gap-3">
         <div className={`flex-shrink-0 mt-0.5`}>
-          <IconComponent className={`w-6 h-6 ${variant.icon}`} />
+          <IconComponent className={`w-6 h-6 ${variant.icon}`} aria-hidden="true" />
         </div>
         <div>
           {block.title && (
@@ -170,8 +170,8 @@ function QuestionBlockComponent({
                     }
                   `}
                 >
-                  {showCorrect && <Check className="w-4 h-4 text-white" />}
-                  {showWrong && <X className="w-4 h-4 text-white" />}
+                  {showCorrect && <Check className="w-4 h-4 text-white" aria-hidden="true" />}
+                  {showWrong && <X className="w-4 h-4 text-white" aria-hidden="true" />}
                   {isSelected && !isChecked && <div className="w-2 h-2 bg-white rounded-full" />}
                 </div>
                 <span className={`${showCorrect ? 'text-green-700 font-medium' : showWrong ? 'text-red-700' : isSelected ? 'text-blue-700 font-medium' : 'text-gray-700'}`}>
@@ -184,17 +184,19 @@ function QuestionBlockComponent({
       </div>
 
       {/* Explanation after checking */}
-      {isChecked && block.explanation && (
-        <div
-          ref={explanationRef}
-          className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}
-        >
-          <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} whitespace-pre-line`}>
-            <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
-            {block.explanation}
-          </p>
-        </div>
-      )}
+      <div aria-live="polite" aria-atomic="true">
+        {isChecked && block.explanation && (
+          <div
+            ref={explanationRef}
+            className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}
+          >
+            <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} whitespace-pre-line`}>
+              <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
+              {block.explanation}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -334,7 +336,7 @@ function LibraryDocumentBlockComponent({
       {/* Collapsed Preview */}
       <div className="mb-6 bg-purple-50 border-2 border-purple-200 rounded-2xl p-5">
         <div className="flex items-start gap-3 mb-3">
-          <BookOpen className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+          <BookOpen className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" aria-hidden="true" />
           <div className="flex-1">
             {displayData.category && (
               <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full mb-2">
@@ -356,7 +358,7 @@ function LibraryDocumentBlockComponent({
             className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors"
           >
             <span>Xem tài liệu</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" aria-hidden="true" />
           </button>
 
           {displayData.estimatedReadTime && (
@@ -373,6 +375,7 @@ function LibraryDocumentBlockComponent({
         <div
           className="fixed inset-0 bg-black/50 z-40 animate-fade-in"
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
         />
       )}
 
@@ -380,19 +383,23 @@ function LibraryDocumentBlockComponent({
       {isOpen && (
         <div
           className="fixed inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:bottom-0 sm:w-[600px] z-50 bg-white shadow-2xl animate-scale-in sm:animate-slide-in-right rounded-none sm:rounded-none"
+          role="dialog"
+          aria-modal="true"
+          aria-label={displayData.title || 'Tài liệu'}
         >
           <div className="h-full flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-purple-600" />
+                <BookOpen className="w-5 h-5 text-purple-600" aria-hidden="true" />
                 <span className="font-semibold text-gray-700">Tài liệu</span>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label="Đóng tài liệu"
               >
-                <X className="w-5 h-5 text-gray-600" />
+                <X className="w-5 h-5 text-gray-600" aria-hidden="true" />
               </button>
             </div>
 
@@ -809,8 +816,8 @@ export default function LearnPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div className="text-center" role="status" aria-label="Đang tải bài học">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" aria-hidden="true"></div>
           <p className="text-gray-500">Đang tải bài học...</p>
         </div>
       </div>
@@ -827,13 +834,21 @@ export default function LearnPage() {
           <button
             onClick={handleClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Đóng bài học"
           >
-            <X className="w-6 h-6 text-gray-600" />
+            <X className="w-6 h-6 text-gray-600" aria-hidden="true" />
           </button>
 
           {/* Progress Bar */}
           <div className="flex-1 mx-8">
-            <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div
+              className="h-2 bg-gray-100 rounded-full overflow-hidden"
+              role="progressbar"
+              aria-valuenow={Math.round(progress)}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Tiến độ bài học"
+            >
               <div
                 className="h-full bg-green-500 transition-all duration-500"
                 style={{ width: `${progress}%` }}
@@ -844,7 +859,7 @@ export default function LearnPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-auto">
+      <main id="main-content" className="flex-1 overflow-auto">
         <div className="max-w-3xl mx-auto px-4 py-8">
           {/* Render visible blocks */}
           {content.blocks.slice(0, visibleBlocks).map((block, index) => (

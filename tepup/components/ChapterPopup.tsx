@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import FocusTrap from 'focus-trap-react';
 import type { ChapterDisplay } from '@/lib/types/content';
 
 interface ChapterPopupProps {
@@ -38,23 +39,31 @@ export default function ChapterPopup({ chapter, storySlug, isSkippingAhead, onCl
       <div
         className="fixed inset-0 bg-black/20 z-40"
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Popup */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-slide-up">
-        <div className="bg-white rounded-2xl shadow-2xl p-6 min-w-[280px]">
-          <h3 className="text-lg font-bold text-gray-900 text-center mb-4">
-            {chapter.title}
-          </h3>
+      <FocusTrap focusTrapOptions={{ allowOutsideClick: true, onDeactivate: onClose }}>
+        <div
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-slide-up"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="chapter-popup-title"
+        >
+          <div className="bg-white rounded-2xl shadow-2xl p-6 min-w-[280px]">
+            <h3 id="chapter-popup-title" className="text-lg font-bold text-gray-900 text-center mb-4">
+              {chapter.title}
+            </h3>
 
-          <button
-            onClick={handleStart}
-            className={`w-full py-3 px-6 ${buttonColor} text-white font-semibold rounded-xl transition-colors`}
-          >
-            {isSkippingAhead ? 'Nhảy cóc' : 'Bắt đầu'}
-          </button>
+            <button
+              onClick={handleStart}
+              className={`w-full py-3 px-6 ${buttonColor} text-white font-semibold rounded-xl transition-colors`}
+            >
+              {isSkippingAhead ? 'Nhảy cóc' : 'Bắt đầu'}
+            </button>
+          </div>
         </div>
-      </div>
+      </FocusTrap>
     </>
   );
 }

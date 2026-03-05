@@ -174,7 +174,7 @@ export default function SourceRankerBlockComponent({ block, onComplete }: Props)
             Kiểm tra thứ tự
           </button>
         ) : (
-          <div className="text-center p-3 bg-gray-50 rounded-xl">
+          <div className="text-center p-3 bg-gray-50 rounded-xl" aria-live="polite">
             <p className="text-lg font-bold text-gray-800">Điểm: {getScore()}/{maxScore}</p>
             <p className="text-sm text-gray-500">
               {getScore() === maxScore

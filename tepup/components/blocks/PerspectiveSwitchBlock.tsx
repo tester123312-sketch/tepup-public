@@ -44,7 +44,7 @@ export default function PerspectiveSwitchBlockComponent({ block, onComplete }: P
     <div className="mb-6 bg-gradient-to-br from-violet-50 to-fuchsia-50 border-2 border-violet-200 rounded-2xl p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
-        <Users className="w-6 h-6 text-violet-600" />
+        <Users className="w-6 h-6 text-violet-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Đa góc nhìn'}</h3>
       </div>
 
@@ -76,7 +76,7 @@ export default function PerspectiveSwitchBlockComponent({ block, onComplete }: P
             >
               {p.icon && <span className="text-lg">{p.icon}</span>}
               <span>{p.role}</span>
-              {isRead && !isActive && <Eye className="w-3.5 h-3.5 text-green-500" />}
+              {isRead && !isActive && <Eye className="w-3.5 h-3.5 text-green-500" aria-hidden="true" />}
             </button>
           );
         })}
@@ -138,8 +138,8 @@ export default function PerspectiveSwitchBlockComponent({ block, onComplete }: P
                         : isSelected ? 'border-violet-500 bg-violet-500'
                         : 'border-gray-300'}
                     `}>
-                      {showCorrect && <Check className="w-3 h-3 text-white" />}
-                      {showWrong && <X className="w-3 h-3 text-white" />}
+                      {showCorrect && <Check className="w-3 h-3 text-white" aria-hidden="true" />}
+                      {showWrong && <X className="w-3 h-3 text-white" aria-hidden="true" />}
                       {isSelected && !checked && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
                     <span className={`${showCorrect ? 'text-green-700 font-medium' : showWrong ? 'text-red-700' : isSelected ? 'text-violet-700 font-medium' : 'text-gray-700'}`}>
@@ -161,7 +161,7 @@ export default function PerspectiveSwitchBlockComponent({ block, onComplete }: P
           )}
 
           {checked && (
-            <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
+            <div className={`mt-4 p-4 rounded-xl ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`} aria-live="polite">
               <p className={`${isCorrect ? 'text-green-700' : 'text-blue-700'} leading-relaxed`}>
                 <span className="font-semibold">{isCorrect ? 'Chính xác! ' : 'Giải thích: '}</span>
                 {block.question.explanation}
@@ -181,7 +181,7 @@ export default function PerspectiveSwitchBlockComponent({ block, onComplete }: P
 
 function Lock({ className }: { className?: string }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
       <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </svg>

@@ -114,7 +114,7 @@ export default function SocraticDialogBlockComponent({ block, onComplete }: Prop
         )}
 
         {isFinished && (
-          <div>
+          <div aria-live="polite">
             {!showRevelation ? (
               <button
                 onClick={() => setShowRevelation(true)}

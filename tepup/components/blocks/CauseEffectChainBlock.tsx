@@ -206,7 +206,7 @@ export default function CauseEffectChainBlockComponent({ block, onComplete }: Pr
 
         {/* Results */}
         {hasSubmitted && (
-          <div className="space-y-3">
+          <div className="space-y-3" aria-live="polite">
             <div className={`p-4 rounded-xl text-center ${
               correctCount === block.correctConnections.length && extraCount === 0
                 ? 'bg-green-50 border border-green-200'

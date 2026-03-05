@@ -84,7 +84,7 @@ export default function DebateArenaBlockComponent({ block, onComplete }: Props) 
   if (isFinished) {
     const scorePercent = (totalScore / maxScore) * 100;
     return (
-      <div className="my-6 bg-white rounded-2xl border border-gray-200 overflow-hidden">
+      <div className="my-6 bg-white rounded-2xl border border-gray-200 overflow-hidden" aria-live="polite">
         <div className="bg-gradient-to-r from-red-600 to-blue-600 p-4">
           <h3 className="text-white font-bold text-lg">{block.title || 'Diễn đàn Tranh luận'}</h3>
         </div>
@@ -197,7 +197,7 @@ export default function DebateArenaBlockComponent({ block, onComplete }: Props) 
             </div>
 
             {/* Feedback */}
-            <div className={`p-3 rounded-xl mb-4 ${
+            <div aria-live="polite" className={`p-3 rounded-xl mb-4 ${
               (selectedResponse?.score || 0) >= 2 ? 'bg-green-50 border border-green-200' : 'bg-yellow-50 border border-yellow-200'
             }`}>
               <div className="flex items-center gap-2 mb-1">

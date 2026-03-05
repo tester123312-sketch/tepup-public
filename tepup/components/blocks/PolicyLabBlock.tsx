@@ -103,6 +103,7 @@ export default function PolicyLabBlockComponent({ block, onComplete }: Props) {
                 step={policy.step}
                 value={values[policy.id]}
                 onChange={(e) => handleChange(policy.id, Number(e.target.value))}
+                aria-label={policy.label}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-500"
               />
               <div className="flex justify-between text-xs text-gray-400 mt-1">
@@ -159,7 +160,7 @@ export default function PolicyLabBlockComponent({ block, onComplete }: Props) {
 
         {/* Insight */}
         {block.insight && hasInteracted && (
-          <div className="mt-5 bg-indigo-50 rounded-xl p-3 border border-indigo-200">
+          <div aria-live="polite" className="mt-5 bg-indigo-50 rounded-xl p-3 border border-indigo-200">
             <p className="text-sm text-indigo-700">💡 {block.insight}</p>
           </div>
         )}

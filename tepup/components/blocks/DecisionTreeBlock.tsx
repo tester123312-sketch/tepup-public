@@ -151,7 +151,7 @@ export default function DecisionTreeBlockComponent({ block, onComplete }: Props)
 
         {/* Ending */}
         {isFinished && endingNode && (
-          <div>
+          <div aria-live="polite">
             {/* Full journey */}
             <div className="mb-4">
               <p className="text-sm font-semibold text-gray-700 mb-2">Hành trình của bạn:</p>

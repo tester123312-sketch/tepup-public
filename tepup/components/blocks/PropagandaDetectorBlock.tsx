@@ -100,7 +100,7 @@ export default function PropagandaDetectorBlockComponent({ block, onComplete }: 
                 : 'bg-orange-200 text-orange-800'
               }
             `}>
-              {isChecked && (isCorrect ? <Check className="w-2.5 h-2.5" /> : <X className="w-2.5 h-2.5" />)}
+              {isChecked && (isCorrect ? <Check className="w-2.5 h-2.5" aria-hidden="true" /> : <X className="w-2.5 h-2.5" aria-hidden="true" />)}
               {techniqueLabel}
             </span>
           )}
@@ -141,7 +141,7 @@ export default function PropagandaDetectorBlockComponent({ block, onComplete }: 
   return (
     <div className="mb-6 bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-200 rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-3">
-        <AlertTriangle className="w-6 h-6 text-red-600" />
+        <AlertTriangle className="w-6 h-6 text-red-600" aria-hidden="true" />
         <h3 className="text-lg font-bold text-gray-900">{block.title || 'Phát hiện Tuyên truyền'}</h3>
       </div>
 
@@ -153,7 +153,7 @@ export default function PropagandaDetectorBlockComponent({ block, onComplete }: 
           onClick={() => setShowTechniqueInfo(showTechniqueInfo ? null : 'all')}
           className="flex items-center gap-1 text-xs text-red-600 hover:text-red-700 font-medium"
         >
-          <Info className="w-3.5 h-3.5" />
+          <Info className="w-3.5 h-3.5" aria-hidden="true" />
           {showTechniqueInfo ? 'Ẩn danh sách kỹ thuật' : 'Xem danh sách kỹ thuật tuyên truyền'}
         </button>
         {showTechniqueInfo && (
@@ -188,7 +188,7 @@ export default function PropagandaDetectorBlockComponent({ block, onComplete }: 
             Click vào đoạn highlight
           </span>
           <span className="flex items-center gap-1">
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className="w-3 h-3" aria-hidden="true" />
             Chọn kỹ thuật
           </span>
         </div>
@@ -210,7 +210,7 @@ export default function PropagandaDetectorBlockComponent({ block, onComplete }: 
       )}
 
       {allChecked && (
-        <div className="space-y-3">
+        <div className="space-y-3" aria-live="polite">
           <div className={`p-4 rounded-xl ${correctCount === block.segments.length ? 'bg-green-50 border border-green-200' : 'bg-blue-50 border border-blue-200'}`}>
             <p className={`font-semibold ${correctCount === block.segments.length ? 'text-green-700' : 'text-blue-700'}`}>
               Kết quả: {correctCount}/{block.segments.length} đúng

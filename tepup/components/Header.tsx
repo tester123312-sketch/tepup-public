@@ -26,7 +26,7 @@ export default function Header() {
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1" aria-label="Điều hướng chính">
             {navItems.map((item) => {
               const isActive =
                 item.href === '/'
@@ -38,13 +38,14 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
                     isActive
                       ? 'text-gray-900 font-medium border-b-2 border-gray-900'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-5 h-5" aria-hidden="true" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -54,8 +55,8 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center gap-2">
             {/* Mobile Menu */}
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors md:hidden">
-              <Menu className="w-6 h-6 text-gray-600" />
+            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors md:hidden" aria-label="Mở menu điều hướng">
+              <Menu className="w-6 h-6 text-gray-600" aria-hidden="true" />
             </button>
           </div>
         </div>
