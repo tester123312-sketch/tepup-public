@@ -4,7 +4,7 @@ import { Suspense, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Eye, EyeOff, User, Lock, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, User, Lock, ArrowLeft, BookOpen } from 'lucide-react';
 
 function LoginForm() {
   const router = useRouter();
@@ -150,6 +150,12 @@ function LoginForm() {
               Chưa có tài khoản?{' '}
               <Link href="/register-contributor" className="text-teal-600 font-medium hover:text-teal-700">
                 Tạo tài khoản
+              </Link>
+            </p>
+            <p className="mt-3 text-center text-sm text-gray-500">
+              <Link href="/contributor-guide" className="inline-flex items-center gap-1 text-teal-600 hover:text-teal-700">
+                <BookOpen className="w-4 h-4" />
+                Tìm hiểu cách đóng góp
               </Link>
             </p>
           </div>

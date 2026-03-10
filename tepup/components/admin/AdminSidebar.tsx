@@ -16,6 +16,7 @@ import {
   Menu,
   CheckSquare,
   UserCog,
+  Lightbulb,
 } from 'lucide-react';
 import { useState } from 'react';
 import { canReviewContent } from '@/lib/role-utils';
@@ -74,6 +75,12 @@ const allMenuItems = [
     title: 'Người dùng',
     href: '/admin/users',
     icon: UserCog,
+    minRole: 'ADMIN' as const,
+  },
+  {
+    title: 'Yêu cầu tính năng',
+    href: '/admin/feature-requests',
+    icon: Lightbulb,
     minRole: 'ADMIN' as const,
   },
 ];

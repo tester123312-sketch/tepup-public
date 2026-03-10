@@ -13,6 +13,8 @@ import {
   BookOpen,
   HelpCircle,
   ArrowRight,
+  Puzzle,
+  Lightbulb,
 } from 'lucide-react';
 
 export default function ContributorGuidePage() {
@@ -210,26 +212,90 @@ export default function ContributorGuidePage() {
             Hướng dẫn viết nội dung chất lượng
           </h2>
           <div className="bg-white rounded-xl border border-gray-100 p-6">
-            <h3 className="font-semibold text-gray-900 mb-2">Cấu trúc một bài học</h3>
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg text-sm text-gray-700 font-mono">
-              Giới thiệu → Callout (thông tin) → Nội dung chính → Hình ảnh minh họa → Callout (lưu ý) → Nội dung bổ sung → Tài liệu tham khảo → Câu hỏi kiểm tra → Kết luận
+            {/* Cấu trúc Mở - Thân - Kết */}
+            <h3 className="font-semibold text-gray-900 mb-3">Cấu trúc một bài học</h3>
+            <p className="text-gray-600 text-sm mb-4">Mỗi bài học nên theo cấu trúc 3 phần:</p>
+
+            <div className="space-y-3 mb-6">
+              <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+                <span className="flex-shrink-0 w-8 h-8 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center text-sm font-bold">Mở</span>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Giới thiệu</h4>
+                  <p className="text-gray-600 text-xs">Bài này sẽ học gì? Tại sao kiến thức này quan trọng? Giúp người học hiểu mục tiêu trước khi bắt đầu.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-teal-50 rounded-lg">
+                <span className="flex-shrink-0 w-8 h-8 bg-teal-100 text-teal-700 rounded-lg flex items-center justify-center text-sm font-bold">Thân</span>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Nội dung chính</h4>
+                  <p className="text-gray-600 text-xs">Trình bày kiến thức qua text, hình ảnh, callout, và đặc biệt là <strong>các công cụ tương tác</strong> để người học hiểu sâu hơn.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-3 bg-amber-50 rounded-lg">
+                <span className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center text-sm font-bold">Kết</span>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Tổng hợp</h4>
+                  <p className="text-gray-600 text-xs">Tóm tắt những gì vừa học, câu hỏi kiểm tra, và gợi ý đọc thêm.</p>
+                </div>
+              </div>
             </div>
 
+            {/* Công cụ tương tác CTA */}
+            <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl mb-6">
+              <div className="flex items-start gap-3">
+                <Puzzle className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm mb-1">Sáng tạo với công cụ tương tác</h4>
+                  <p className="text-gray-600 text-xs mb-3">
+                    Một bài học tốt thường có nhiều tương tác để người học hiểu sâu. Tepup cung cấp hơn 20 loại block tương tác: quiz, mô phỏng, tranh luận, timeline, và nhiều hơn nữa.
+                  </p>
+                  <Link
+                    href="/contributor-guide/block-demo"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+                  >
+                    <Puzzle className="w-3.5 h-3.5" />
+                    Xem demo công cụ tương tác
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Nên / Tránh */}
             <h3 className="font-semibold text-gray-900 mb-2">Nên</h3>
             <ul className="text-gray-700 text-sm space-y-1 mb-4">
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" /> Viết dễ hiểu, tránh thuật ngữ phức tạp không cần thiết</li>
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" /> Trích dẫn nguồn rõ ràng khi nêu số liệu hoặc sự kiện</li>
-              <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" /> Thêm hình ảnh minh họa và câu hỏi kiểm tra</li>
+              <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" /> Thêm hình ảnh minh họa và công cụ tương tác</li>
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" /> Giữ giọng văn khách quan, trung lập</li>
             </ul>
 
             <h3 className="font-semibold text-gray-900 mb-2">Tránh</h3>
-            <ul className="text-gray-700 text-sm space-y-1">
+            <ul className="text-gray-700 text-sm space-y-1 mb-6">
               <li className="flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" /> Nội dung sai sự thật hoặc chưa được xác minh</li>
               <li className="flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" /> Spam, quảng cáo, nội dung không liên quan</li>
               <li className="flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" /> Vi phạm bản quyền (copy nguyên văn từ nguồn khác)</li>
               <li className="flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" /> Nội dung thiên vị, mang tính tuyên truyền một chiều</li>
             </ul>
+
+            {/* Feature request CTA */}
+            <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl">
+              <div className="flex items-start gap-3">
+                <Lightbulb className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm mb-1">Thiếu tính năng bạn cần?</h4>
+                  <p className="text-gray-600 text-xs mb-3">
+                    Nếu bạn có ý tưởng về công cụ mới, tính năng cải thiện, hoặc bất kỳ đề xuất nào — hãy cho chúng tôi biết!
+                  </p>
+                  <Link
+                    href="/feature-request"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 text-white text-xs font-medium rounded-lg hover:bg-amber-700 transition-colors"
+                  >
+                    <Lightbulb className="w-3.5 h-3.5" />
+                    Đề xuất tính năng mới
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

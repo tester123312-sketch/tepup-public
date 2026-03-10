@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import { getCategories } from '@/lib/services/content-service';
-import { BookOpen, Map, Shield, ArrowRight, Sparkles } from 'lucide-react';
+import { BookOpen, Map, Shield, ArrowRight, Sparkles, Lock, Gift, Users, Heart } from 'lucide-react';
 
 export default async function Home() {
   const categories = await getCategories();
@@ -95,6 +95,29 @@ export default async function Home() {
                   Không gian học tập an toàn để tìm hiểu và thể hiện chính kiến về các vấn đề xã hội.
                 </p>
               </div>
+
+              {/* Card 4 */}
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-5">
+                  <Lock className="w-7 h-7 text-green-500" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Học an toàn</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Tepup không thu thập và lưu trữ dữ liệu cá nhân của người học. Bạn hoàn toàn yên tâm khi sử dụng.
+                </p>
+              </div>
+
+              {/* Card 5 */}
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center mb-5">
+                  <Gift className="w-7 h-7 text-purple-500" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Hoàn toàn miễn phí</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Tất cả khóa học và nội dung trên Tepup đều miễn phí. Không quảng cáo, không phí ẩn.
+                </p>
+              </div>
+
             </div>
           </div>
         </section>
@@ -136,6 +159,40 @@ export default async function Home() {
             </div>
           </section>
         )}
+
+        {/* Open Platform Section */}
+        <section className="bg-gray-50 py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto text-center">
+              <div className="w-16 h-16 bg-cyan-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Users className="w-8 h-8 text-cyan-500" />
+              </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Nền tảng mở cho tất cả</h2>
+              <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                Tương tự như Wikipedia, Tepup là nền tảng mở nơi ai cũng có thể đóng góp nội dung. Mỗi bài học đều được xây dựng và hoàn thiện bởi cộng đồng.
+              </p>
+              <p className="text-gray-500 leading-relaxed mb-8">
+                Bạn có kiến thức về kinh tế, chính trị, xã hội? Hãy chia sẻ và cùng nhau xây dựng kho kiến thức Khoa học Xã hội bằng tiếng Việt lớn nhất.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/contributor"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-cyan-500 text-white font-semibold rounded-2xl hover:bg-cyan-600 transition-colors text-lg"
+                >
+                  Trở thành người đóng góp
+                  <Heart className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/contributor-guide"
+                  className="inline-flex items-center gap-2 px-8 py-4 text-cyan-600 font-semibold rounded-2xl border border-cyan-200 hover:bg-cyan-50 transition-colors text-lg"
+                >
+                  Tìm hiểu cách đóng góp
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Bottom CTA */}
         <section className="bg-gray-900 py-16 sm:py-20">

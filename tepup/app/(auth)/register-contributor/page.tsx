@@ -190,7 +190,7 @@ export default function RegisterContributorPage() {
                 className="flex items-center gap-2 text-teal-700 text-sm hover:text-teal-800"
               >
                 <BookOpen className="w-4 h-4" />
-                <span>Tìm hiểu cách đóng góp & luật chơi</span>
+                <span>Tìm hiểu cách đóng góp</span>
               </Link>
             </div>
 
