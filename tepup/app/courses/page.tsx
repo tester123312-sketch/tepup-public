@@ -3,6 +3,8 @@ import StorySection from '@/components/StorySection';
 import CategorySection from '@/components/CategorySection';
 import { getCategories, getCharacters } from '@/lib/services/content-service';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CoursesPage() {
   const [categories, characters] = await Promise.all([
     getCategories(),

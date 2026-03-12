@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import { getCategories } from '@/lib/services/content-service';
 import { BookOpen, Map, Shield, ArrowRight, Sparkles, Lock, Gift, Users, Heart } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const categories = await getCategories();
 
