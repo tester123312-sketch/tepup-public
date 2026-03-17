@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, Check, Lightbulb, MessageCircle, AlertCircle, CheckCircle, BookOpen, ChevronRight, Clock } from 'lucide-react';
 import type {
   ContentBlock,
@@ -225,6 +225,19 @@ function ImageBlockComponent({
   );
 }
 
+function renderTextWithLinks(text: string): React.ReactNode {
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.match(/^https?:\/\//) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer"
+         className="text-purple-600 hover:text-purple-800 underline break-all">
+        {part}
+      </a>
+    ) : (part)
+  );
+}
+
 function LibraryDocumentBlockComponent({
   block,
 }: {
@@ -439,7 +452,7 @@ function LibraryDocumentBlockComponent({
                     <div className="space-y-3">
                       {section.paragraphs.map((para: string, pIdx: number) => (
                         <p key={pIdx} className="text-gray-700 leading-relaxed whitespace-pre-line">
-                          {para}
+                          {renderTextWithLinks(para)}
                         </p>
                       ))}
                     </div>
@@ -479,7 +492,7 @@ function LibraryDocumentBlockComponent({
                     {displayData.documentContent.furtherReading.map((item: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2">
                         <span className="text-purple-600 mt-1">•</span>
-                        <span className="text-gray-700">{item}</span>
+                        <span className="text-gray-700">{renderTextWithLinks(item)}</span>
                       </li>
                     ))}
                   </ul>

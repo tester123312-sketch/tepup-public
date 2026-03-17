@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import { BookOpen, Search, Filter, Clock, ChevronRight, X } from 'lucide-react';
 
@@ -18,6 +18,19 @@ interface LibraryDocument {
     relatedConcepts?: string[];
     furtherReading?: string[];
   };
+}
+
+function renderTextWithLinks(text: string): React.ReactNode {
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.match(/^https?:\/\//) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer"
+         className="text-purple-600 hover:text-purple-800 underline break-all">
+        {part}
+      </a>
+    ) : (part)
+  );
 }
 
 export default function LibraryPage() {
@@ -299,7 +312,7 @@ export default function LibraryPage() {
                       <div className="space-y-3">
                         {section.paragraphs.map((para, pIdx) => (
                           <p key={pIdx} className="text-gray-700 leading-relaxed">
-                            {para}
+                            {renderTextWithLinks(para)}
                           </p>
                         ))}
                       </div>
@@ -342,7 +355,7 @@ export default function LibraryPage() {
                           (item, idx) => (
                             <li key={idx} className="flex items-start gap-2">
                               <span className="text-purple-600 mt-1">•</span>
-                              <span className="text-gray-700">{item}</span>
+                              <span className="text-gray-700">{renderTextWithLinks(item)}</span>
                             </li>
                           )
                         )}
