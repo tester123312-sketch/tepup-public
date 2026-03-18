@@ -39,6 +39,20 @@ import {
   ScenarioWhatIfBlockComponent,
 } from '@/components/blocks';
 
+// Helper: render URLs as clickable links
+function renderTextWithLinks(text: string): React.ReactNode {
+  const parts = text.split(/(https?:\/\/[^\s]+)/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.match(/^https?:\/\//) ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer"
+         className="text-purple-600 hover:text-purple-800 underline break-all">
+        {part}
+      </a>
+    ) : (part)
+  );
+}
+
 // Content Block Components
 function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; paragraphs: string[] } }) {
   return (
@@ -49,7 +63,7 @@ function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; 
       <div className="space-y-4">
         {block.paragraphs.map((paragraph, index) => (
           <p key={index} className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
-            {paragraph}
+            {renderTextWithLinks(paragraph)}
           </p>
         ))}
       </div>
@@ -103,7 +117,7 @@ function CalloutBlockComponent({ block }: { block: { type: 'callout'; icon?: str
           {block.title && (
             <h3 className={`font-semibold ${variant.title} mb-1`}>{block.title}</h3>
           )}
-          <p className={`${variant.text} leading-relaxed whitespace-pre-line`}>{block.text}</p>
+          <p className={`${variant.text} leading-relaxed whitespace-pre-line`}>{renderTextWithLinks(block.text)}</p>
         </div>
       </div>
     </div>
@@ -222,19 +236,6 @@ function ImageBlockComponent({
         </figcaption>
       )}
     </figure>
-  );
-}
-
-function renderTextWithLinks(text: string): React.ReactNode {
-  const parts = text.split(/(https?:\/\/[^\s]+)/g);
-  if (parts.length === 1) return text;
-  return parts.map((part, i) =>
-    part.match(/^https?:\/\//) ? (
-      <a key={i} href={part} target="_blank" rel="noopener noreferrer"
-         className="text-purple-600 hover:text-purple-800 underline break-all">
-        {part}
-      </a>
-    ) : (part)
   );
 }
 
