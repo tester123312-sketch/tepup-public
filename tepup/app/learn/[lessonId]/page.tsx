@@ -63,7 +63,7 @@ function TextBlockComponent({ block }: { block: { type: 'text'; title?: string; 
       <div className="space-y-4">
         {block.paragraphs.map((paragraph, index) => (
           <p key={index} className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">
-            {renderTextWithLinks(paragraph)}
+            {paragraph}
           </p>
         ))}
       </div>
@@ -117,7 +117,7 @@ function CalloutBlockComponent({ block }: { block: { type: 'callout'; icon?: str
           {block.title && (
             <h3 className={`font-semibold ${variant.title} mb-1`}>{block.title}</h3>
           )}
-          <p className={`${variant.text} leading-relaxed whitespace-pre-line`}>{renderTextWithLinks(block.text)}</p>
+          <p className={`${variant.text} leading-relaxed whitespace-pre-line`}>{block.text}</p>
         </div>
       </div>
     </div>
