@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Home, BookOpen, Library, Menu } from 'lucide-react';
 
@@ -19,9 +20,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">T</span>
-            </div>
+            <Image src="/Tepup-Color-Logo-0.png" alt="Tepup logo" width={32} height={32} className="rounded-lg" />
             <span className="text-xl font-bold text-gray-900">Tepup</span>
           </Link>
 
